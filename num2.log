@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6210 64-bit) (preloaded format=pdflatex 2019.4.10)  5 JUN 2019 11:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6210 64-bit) (preloaded format=pdflatex 2019.4.10)  11 JUN 2019 10:00
 entering extended mode
 **./num2.tex
 (num2.tex
@@ -806,26 +806,26 @@ ith start-ing val-ues $\OML/cmm/m/it/10 y[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10
 y\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t[]\OT1/cmr/m/n/10 ) +
  []
 
-[36] [37] [38]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2367.
- [39]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 2367.
+[36] [37] [38] [39] [40]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2519.
+ [41]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2519.
  (num2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2367.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2367.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2519.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2519.
 
 Package rerunfilecheck Info: File `num2.out' has not changed.
 (rerunfilecheck)             Checksum: 15A15DDACA0380A65574D1B1DAE3C9F9;485.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2367.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2519.
  ) 
 Here is how much of TeX's memory you used:
- 7866 strings out of 493333
- 106953 string characters out of 3139194
- 220879 words of memory out of 3000000
- 11105 multiletter control sequences out of 15000+200000
+ 7884 strings out of 493333
+ 107117 string characters out of 3139194
+ 220975 words of memory out of 3000000
+ 11108 multiletter control sequences out of 15000+200000
  12017 words of font info for 47 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 28i,16n,35p,537b,516s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 28i,20n,35p,537b,516s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
 les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKT
@@ -843,16 +843,17 @@ ts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/p
 ublic/amsfonts/cm/cmr7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsf
 onts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
 sy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy5.pfb>
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Progr
-am Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/
-MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2
-.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts
-/type1/public/amsfonts/symbols/msam10.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
-pe1/public/amsfonts/symbols/msbm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
-/public/amsfonts/symbols/msbm7.pfb>
-Output written on num2.pdf (39 pages, 487755 bytes).
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Progr
+am Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files/
+MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/
+type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/symbols/msam10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publi
+c/amsfonts/symbols/msbm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/a
+msfonts/symbols/msbm7.pfb>
+Output written on num2.pdf (41 pages, 514257 bytes).
 PDF statistics:
- 509 PDF objects out of 1000 (max. 8388607)
- 194 named destinations out of 1000 (max. 500000)
+ 542 PDF objects out of 1000 (max. 8388607)
+ 209 named destinations out of 1000 (max. 500000)
  57 words of extra memory for PDF output out of 10000 (max. 10000000)
 

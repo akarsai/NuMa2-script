@@ -2156,7 +2156,7 @@ is called \textbf{zero stable}, if the corresponding first characteristic polyno
 \[
 \varrho(\xi) = \sum_{j=0}^{ m }\alpha_j \xi^j
 \]
-meets the \textit{Dahlquist root condition}, i.e. {all roots of the polynomials lie inside of the closed complex unit circle and on the boundary if they are simple.}
+meets the \textit{Dahlquist root condition}, i.e. {all roots of the polynomials lie inside of the closed complex unit circle and the roots on the boundary are simple.}
 \end{definition}
 
 \begin{remark}
@@ -2207,7 +2207,7 @@ We will show
     \]
     such that
     \[
-    \sum_{j=0}^{m} \alpha_j y_{i+j} = \sum_{j=0}^{m }\alpha_j(i+j)\sqrt{\Delta t}~\xi_2^{i_j-1} = \sqrt{\Delta t} ~ i \xi_2^j \sum_{j=0}^{m } j\alpha_j \xi_2^{j-1} = 0
+    \sum_{j=0}^{m} \alpha_j y_{i+j} = \sum_{j=0}^{m }\alpha_j(i+j)\sqrt{\Delta t}~\xi_2^{i+j-1} = \sqrt{\Delta t} ~ i \xi_2^j \sum_{j=0}^{m } j\alpha_j \xi_2^{j-1} = 0
     \]
     is a solution of the difference equation \eqref{II.32}, where the starting values $y_0,\dots,y_{m-1}$ with
     \[
@@ -2231,9 +2231,161 @@ We will show
     & = \sum_{j=0}^{m } \alpha_j - \underbrace{\sum_{j=0 }^{m }\alpha_j y_j}_{=0} = \varrho(1).
     \end{align*}
 
-    {\rot The part $\varrho'(1) = \sigma(1)$ will be done on tuesday.}
+    For showing $\varrho'(1) = \sigma(1)$ we consider
+    \[
+    y'(t) = 1, ~ y(0) = 0, ~ t\in[0,1].
+    \]
+    The exact solution is given by $y(t) = t$. This gives the inhomogeneous difference equation
+    \[
+    \sum_{j=0}^{m }\alpha_j y_{i+j} = \Delta t \sum_{j=0}^{m }\beta_j
+    \]
+    for all $i$. Since $\varrho(1)=0$, we know that $\xi=1$ is a simple root.\footnote{This follows by the zero stability shown before.} Hence, $\varrho'(1)\neq 0$ and we can set
+    \[
+    M:= \frac{\sigma(1)}{\varrho'(1)}
+    \]
+    and
+    \[
+    y_n:=n\cdot \Delta t \cdot M
+    \]
+    for all $n\in\N$. The first $m$ elements meet
+    \[
+    \lim_{\Delta t\to 0 } |y_j - y(j \Delta t)| = \lim_{\Delta t\to 0} |j\cdot \Delta t \cdot (m-1) | = 0
+    \]
+    for $j=0,\dots,m-1$.\footnote{This means that the starting conditions are met by the first $m$ elements.} Further, it holds
+    \begin{align*}
+    \sum_{j=0}^{m }\alpha_j y_{i+j} - \Delta t \cdot \sum_{j=0}^{m }\beta_j
+    & = \sum_{j=0}^{m }\alpha_j (i+j) \Delta t \underbrace{M}_{=\frac{\sigma(1)}{\varrho'(1)}} - \Delta t \cdot \underbrace{\sum_{j=0}^{m }\beta_j}_{=\sigma(1)} \\
+    & = \Delta t \cdot \left( \frac{\sigma(1)}{\varrho(1)} \left( i \cdot \sum_{j=0}^{m }\alpha_j + \sum_{j=0}^{m} j\alpha_j \right) - \sigma(1) \right) \\
+    & = 0
+    \end{align*}
+    which means that $y_n = n \cdot \Delta t \cdot M$ is a solution of the difference equation. Since we have convergence for $T=n\cdot \Delta t \in (0,1)$ fixed, it holds
+    \[
+    0 = \lim_{\Delta t\to0} |y_n - y(T)| = \lim_{\Delta t \to 0} |n\cdot \Delta t \cdot M - T| = \lim_{\Delta t \to 0} | T - MT| = |T(1-M)|.
+    \]
+    Hence, since $T$ is nonzero, $1-M$ is zero, so $\sigma(1) = \varrho'(1)$. This ends the proof.
 \end{enumerate}
 \end{proof}
+
+We now aim to show that
+\[
+\textrm{zero stability~} + \textrm{~consistency~} \Rightarrow \textrm{~convergence}. \tag{$\ast\ast$}
+\]
+This leads us to the next definition.
+
+\begin{definition}
+A multistep method with incremental function $\Phi$ is \textbf{Lipschitz-continuous in $(t,y(t)$ with Lipschitz constant $L>0$}, if there exists a neighbourhood $U$ of $(t,y(t))$ and a constant $H>0$ such that
+\[
+\l|\Phi(t_i,u_0,\dots,u_m,\Delta t) - \Phi(t_i, v_0, \dots, v_m, \Delta t)\r| \leq L \cdot \sum_{k=0}^{m } |u_k-v_k|
+\]
+for all time step sizes $0<\Delta t \leq H$ and all $(t,u_k),(t,v_k)\in U(t,y(t)), ~ k=0,\dots,m$.
+\end{definition}
+
+For the proof of our goal we need two technical lemma.
+
+\begin{lemma}[technical]
+For $A\in \C^{n,n}$ the sequence of matrices $(A^k)_{k\in\N}$ is bounded if and only if the spectral radius $\varrho(A)\leq1$ and for each eigenvalue $\lambda \in \C$ of $A$ with $|\lambda|=1$ the algebraic and geometric multiplicity are the same.
+\end{lemma}
+\begin{proof}
+We use the Jordan-decomposition $T\inv A T = J = \textrm{diag}(J_1,\dots,J_r)$.\footnote{It states that for each matrix $A\in\C^{n,n}$ there exists a nonsingular transformation $T\in\C^{n,n}$ such that $T\inv A T = J$, where $J= \textrm{diag}(J_1,\dots,J_r)$, where $J_i$ a is a Jordan block.} In each $J_j$ with $m_j\geq 2$, we know that $|\lambda_j|<1$. We now find a $\varepsilon>0$ such that
+\[
+|\lambda_j|+\varepsilon < 1.
+\]
+an then we multiply $J$ by $D=\textrm{diag}(1,\varepsilon,\varepsilon^2, \dots, \varepsilon^{k-1})$ and obtain
+\[
+\tilde J = D\inv J D.
+\]
+We arrive at the Jordan blocks
+\[
+\tilde J_j = \begin{bmatrix}
+\lambda_j & \varepsilon & & 0 \\
+& \ddots & \ddots & \\
+& & \lambda_j & \varepsilon \\
+0 & & & \lambda_j
+\end{bmatrix}.
+\]
+For $k\in\N$ it holds
+\[
+\norm{\tilde J^k} \leq \norm{\tilde J}^k \leq \varrho(\tilde J)^k \leq 1. \tag{$\ast$}
+\]
+Setting $S= D\inv T$, we have $A^k = (S \tilde J S\inv)^k = (S\tilde J^k S\inv)$. Using $(\ast)$ we have
+\[
+\norm{A^k}_{\infty} \leq \norm{S}_\infty \norm{S\inv}_\infty \norm{\tilde J^k}_{\infty} \leq \kappa_\infty(S) < \infty
+\]
+for all $k\in \N$.
+
+The reverse direction is much shorter and is an exercise.
+\end{proof}
+
+\begin{lemma}[discrete Gronwall-Lemma]
+Let $\Delta t_0,\dots , \Delta t_{r-1}\in \R_{>0}$ and $\delta,\gamma\in\R_{\geq 0}$ be given. If the numbers $e_0,\dots,e_r\in\R$ meet
+\[
+|e_0|\leq \delta \und |e_\ell| \leq \delta + \gamma \sum_{j=1}^{\ell-1} \Delta t_j ~|e_j|
+\]
+for $\ell=1,\dots,r$, then it holds
+\[
+|e_\ell| \leq \delta \cdot \exp \l(\gamma \sum_{j=0}^{\ell-1}\Delta t_{j}\r)
+\]
+for $l=0,\dots,r$.
+\end{lemma}
+\begin{proof}
+No proof, since the proof is similar to the known Gronwall-Lemma.
+\end{proof}
+
+\begin{theorem}
+Let the multistep method
+\[
+\sum_{j=0}^{m }\alpha_j y_{i+j} = \Delta t \Phi(t_i, y_i, \dots, y_{i+m},\Delta t) \labtag{II.33}
+\]
+be Lipschitz and zero stable. Then there exists a stepsize bound $H>0$: $0<\Delta t = \frac{b-a}{n} \leq H$ such that
+\[
+\max_{j=0,\dots,n} |e(t_j,\Delta t)| \leq K \l( \max{k=0,\dots,m-1} |e(t_k,\Delta t) + \max_{a\leq t \leq b - m \Delta t} \frac{\eta(t,\Delta t)}{\Delta t} \r) \labtag{II.34}
+\]
+with a consistent $K>0$ being independent on the Lipschitz-constant.
+\end{theorem}
+\begin{proof}
+For the left hand side of \eqref{II.34}, let us define
+\[
+e := \begin{bmatrix} e_0 & \dots & e_n  \end{bmatrix}^T \in \R^{n+1},\footnote{Note that $e$ is a vector.}
+\]
+where $e_i = e(t_i,\Delta t),~i=0,\dots,m$. Furthermore, for each $j=0,\dots,n-(m-1)$ we define
+\[
+e_j := \begin{bmatrix} e_j & \dots & e_{j+m-1} \end{bmatrix}^T\in\R^m
+\]
+such that we can express the total error as
+\[
+\norm{e}_\infty = \dots
+\]
+Furthermore, we set
+\[
+\eta_i = \eta(t_i,\Delta t), ~i=0,\dots
+\]
+and obtain
+\begin{align*}
+\sum_{j=0}^{m }\alpha_j e_{i+j} & = \sum_{j=0}^{m }\alpha_j \l( y(t_{i+j}) - y_{i+j} \r) \\
+& = \Delta t \underbrace{\l( \Phi\Big(t_i,y(t_i),\dots,y(t_{i+m}),\Delta t\Big) - \Phi\Big(t_i, y_i, \dots, y_{i+m},\Delta t\Big) \r)}_{=:\mu_i} + \eta_i. \labtag{II.35}
+\end{align*}
+Without loss of generality, we set $\alpha_m=1$. With \eqref{II.35} we obtain
+\[
+e_{i+m} = \sum_{j=0}^{m-1} \alpha_j e_j + \mu_i + \eta_i.
+\]
+Finally, we arrive at
+\[
+\begin{bmatrix} e_{i+1} \\ \vdots \\ e_{i+m} \end{bmatrix} = {\rot \textrm{missing.}}
+\]
+\end{proof}
+
+\begin{remark}\hfill
+\begin{itemize}
+    \item It holds $e(t_i,\Delta t)=y(t_i)-y_i$.
+    \item Theorem II.34 in short states, that for a Lipschitz-continuous multistep method it holds $(\ast\ast)$.
+    \item Starting values need at least the order of consistency of the method.
+    \item Compare $\frac{\eta(t_i,\Delta t)}{\Delta t}$ with the consistency definition.
+\end{itemize}
+\end{remark}
+
+
+
+
 
 
 
