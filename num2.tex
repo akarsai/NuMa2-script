@@ -2338,7 +2338,7 @@ Let the multistep method
 \]
 be Lipschitz and zero stable. Then there exists a stepsize bound $H>0$: $0<\Delta t = \frac{b-a}{n} \leq H$ such that
 \[
-\max_{j=0,\dots,n} |e(t_j,\Delta t)| \leq K \l( \max{k=0,\dots,m-1} |e(t_k,\Delta t) + \max_{a\leq t \leq b - m \Delta t} \frac{\eta(t,\Delta t)}{\Delta t} \r) \labtag{II.34}
+\max_{j=0,\dots,n} |e(t_j,\Delta t)| \leq K \l( \max_{k=0,\dots,m-1} |e(t_k,\Delta t)| + \max_{a\leq t \leq b - m \Delta t} \frac{\eta(t,\Delta t)}{\Delta t} \r) \labtag{II.34}
 \]
 with a consistent $K>0$ being independent on the Lipschitz-constant.
 \end{theorem}
@@ -2353,11 +2353,11 @@ e_j := \begin{bmatrix} e_j & \dots & e_{j+m-1} \end{bmatrix}^T\in\R^m
 \]
 such that we can express the total error as
 \[
-\norm{e}_\infty = \dots
+\norm{e}_\infty = {\rot\dots}
 \]
 Furthermore, we set
 \[
-\eta_i = \eta(t_i,\Delta t), ~i=0,\dots
+\eta_i = \eta(t_i,\Delta t), ~i=0,1,\dots
 \]
 and obtain
 \begin{align*}
@@ -2370,8 +2370,106 @@ e_{i+m} = \sum_{j=0}^{m-1} \alpha_j e_j + \mu_i + \eta_i.
 \]
 Finally, we arrive at
 \[
-\begin{bmatrix} e_{i+1} \\ \vdots \\ e_{i+m} \end{bmatrix} = {\rot \textrm{missing.}}
+\begin{bmatrix} e_{i+1} \\ \vdots \\ e_{i+m} \end{bmatrix}
+= \begin{bmatrix}
+0 & 1 & & \\
+& \ddots & \ddots& \\
+& & 0 & 1 \\
+-\alpha_0 & \dots & \dots & -\alpha_{m-1}
+\end{bmatrix}  \begin{bmatrix} e_i \\ \vdots \\ \vdots \\ e_{i+m-1} \end{bmatrix} + \begin{bmatrix} 0 \\ \vdots \\ 0 \\ \mu_i+\eta_i \end{bmatrix},
 \]
+or
+\[
+e_{i+1} = A e_i + f_i.
+\]
+We thus can rewrite
+\[
+e_i = A e_{i-1} f_{i-1} = \dots = A^i e_0 + \sum_{k=0}^{i-1 } A^{i-1-k} f_k. \labtag{II.36}
+\]
+This means that we can express the error vector $e_i$ in terms of the initialization error. One can show that
+\[
+p(\lambda)=\det(A-\lambda I) = - \sum_{j=0}^{m-1} \alpha_j \lambda^j = - \varrho(\lambda).
+\]
+Due to the zero stability we know that for all eigenvalues $\lambda$ it holds $|\lambda|\leq 1$ and the eigenvalues with $|\lambda|=1$ are simple. We can thus apply lemma II.32 such that $(A^k)_{k\in\N}$ is bounded, i.e.
+\[
+\norm{A^p}_{\infty} \leq C
+\]
+for all $p\in \N$ with a $C\geq 1$. We thus rewrite \eqref{II.36} as
+\[
+\norm{e_i}_\infty \leq C \l( \norm{e_0}_\infty  + \sum_{k=0}^{i-1} \norm{f_k}_\infty  \r). \labtag{II.37}
+\]
+We still need to handle $\norm{f_k}_\infty$. Our idea is to use the Lipschitz condition
+\[
+\norm{\mu_k} \leq \Delta t \cdot L \cdot \sum_{j=0}^{m} |y(t_{k+j}) - y_{k+j}| = \Delta t \cdot L \cdot \sum_{j=0}^{m }|e_{k+j}|.
+\]
+Using that, we obtain
+\begin{align*}
+\norm{f_k}_\infty
+& = |\mu_k+\eta_k| \\
+& \leq |\mu_k| + |\eta_k| \\
+& \leq |\eta_k| + \Delta t\cdot L \cdot \sum_{j=0}^{m }|e_{k+j}|  \\
+& \leq n\cdot \max_{j=0,\dots,n-m} |\eta_j| + \Delta t \cdot L \cdot m \cdot \norm{e_k}_\infty + \Delta t \norm{e_{k+1}}_\infty.
+\end{align*}
+It further holds
+\[
+\sum_{k=0}^{i-1}\norm{f_k}_\infty \leq n \cdot \max_{j=0,\dots,n-m} |\eta_j| + \Delta t \cdot L(m+1) \cdot \sum_{k=0}^{i-1} \norm{e_k}_\infty + \Delta t \cdot L \cdot \norm{e_i}_\infty.
+\]
+Inserting these two results into \eqref{II.37} gives
+\begin{align*}
+& \norm{e_i}_\infty \\
+& \leq C \l( \norm{e_0}_\infty + n \cdot \max_{j=0,\dots,n-m}|\eta_j| +  \Delta t\cdot(m+1) \cdot L \sum_{k=0}^{i-1} \norm{e_k}_\infty + \Delta t \cdot L \cdot \norm{e_i}_\infty \r).
+\end{align*}
+We thus have
+\[
+(1-C\cdot \Delta t\cdot L )\norm{e_i}_\infty \leq C \l( \norm{e_0}_\infty + n \cdot \max_{j=0,\dots,n-m} |\eta_j| + \Delta t \cdot (m+1)\cdot L \sum_{k=0}^{i-1}\norm{e_k}_\infty \r).
+\]
+Since we bound the time step $\Delta t$ by a constant $H<\tfrac{1}{CL}$, we have
+\[
+(1- \Delta t \cdot C \cdot L ) \geq 1 - HCL > 0.
+\]
+We thus have
+\[
+\norm{e_i}_\infty \leq \delta + \gamma \cdot \sum_{k=0}^{i-1} \Delta t \norm{e_k}_\infty
+\]
+for $i=0,\dots,n-m$, where
+\[
+\delta:= \frac{C}{1-HCL} \l( \norm{e_0}_\infty + n \cdot \max_{j} |\eta_j| \r) \geq 0
+\]
+and
+\[
+\gamma:= \frac{(m+1)\cdot L \cdot C}{1-HCL} \geq 0.
+\]
+With Gronwall's lemma (lemma II.33), we obtain
+\[
+\norm{e_i}_\infty \leq \delta \cdot \exp \l( \gamma \cdot \sum_{k=0}^{i-1}\Delta t \r) \leq \delta\cdot \exp(\gamma(b-a)).
+\]
+Setting
+\[
+\tilde k:= \frac{C}{1-HCL}\cdot \exp(\gamma(b-a)) \textrm{~and~} n = \frac{b-a}{\Delta t},
+\]
+we arrive at
+\begin{align*}
+|e_i| \leq \norm{e_i}_\infty
+& \leq \tilde k \l( \norm{e_0}_\infty + n\cdot \max_{j=0,\dots,n-m}|\eta_j| \r) \\
+& \leq \tilde k \l( \norm{e_0}_\infty + n \cdot \max_{a\leq t \leq b-m\Delta t} |\eta(t,\Delta t)| \r).
+\end{align*}
+Thus, it holds
+\[
+|e_i| \leq k \cdot \l( \max_{j=0,\dots,m-1} |y(t_i)-y_i| + n\cdot \max_{a\leq t \leq b-m \Delta t} \frac{n(t,\Delta t)}{\Delta t} \r)
+\]
+for $i=0,\dots,n-(m-1)$ with
+\[
+k:= \max \l\{\tilde k, \tilde k \cdot (b-a)\r\} \geq 0.
+\]
+Because of
+\[
+\max_{j=n-(m-1),\dots,n}|y(t_j)-y_j| = \max_{n-(m-1),\dots,n}|e_j| \leq \norm{e_{n-(m-1)}}_\infty
+\]
+we obtain
+\[
+\max_{i=0,\dots,n} |y(t_i)-y_i| \leq k \l( \max_{k=0,\dots,m-1} |e(t_k,\Delta t)| + \max_{a\leq t \leq b-m \Delta t} \frac{|\eta(t,\Delta t)|}{\Delta t} \r),
+\]
+what ends the proof.
 \end{proof}
 
 \begin{remark}\hfill
@@ -2382,6 +2480,81 @@ Finally, we arrive at
     \item Compare $\frac{\eta(t_i,\Delta t)}{\Delta t}$ with the consistency definition.
 \end{itemize}
 \end{remark}
+
+\subsubsection*{BDF Methods (Backwards Differentiation Formula Methods)}
+
+\begin{definition}[BDF-scheme]
+For $t_{i+j} = t_i + j \Delta t, ~ j=0,\dots,m$ and nodes $(t_i,y_i), \dots, (t_{i+m-1},y_{i+m-1}) \in \R^2$ let $p\in\P_m$ be given via
+\[
+p(t_{i+j})=y_{i+j} \und p'(t_{i+m}) = f(t_{i+m},p(t_{i+m})) \labtag{II.38}
+\]
+for $j=0,\dots,m-1$. Then, the BDF scheme computes the approximation $y_{i+m}$ at $t_{i+m}$ by
+\[
+y_{i+m} = p(t_{i+m}). \labtag{II.39}
+\]
+\end{definition}
+
+\begin{example}[BDF(2)-method]
+For given two values $y_i,y_{i+1}$ we consider $p\in\P_2$ such that
+\[
+p(t_i) = y_i, ~ p(t_{i+1}) = y_{i+1} \und p'(t_{i+2}) = f(t_{i+2},p(t_{i+2})). \tag{\ast}
+\]
+Using an expansion, we get the equations
+\[
+p(t_{i+1}) = p(t_{i+2}) + \Delta t p'(t_{i+2}) + \frac{\Delta t^2}{2}p''(t_{i+2})
+\]
+and
+\[
+p(t_i) = p(t_{i+2}) + 2 \Delta t p'(t_{i+2}) + 2 \Delta t^2 p''(t_{i+2}).
+\]
+Substracting the first equation from the second four times, we obtain
+\[
+p(t_i) - 4 p(t_{i+1}) = -3 p(t_i) - 2 \Delta t p'(t_{i+2}) + 0.
+\]
+The conditions ($\ast$) give
+\[
+\frac{y_i - 4 y_{i+2} + 3 y_{i+2}}{2 \Delta t} = p'(t_{i+2}) = f(t_{i+2},y_{i+2}).
+\]
+Rearranging leads to
+\begin{align*}
+\frac{3 y_{i+2} - 4 y_{i+1} + y_i }{2 \Delta t}
+& = \frac{3 p(t_{i+2}) - 4 p(t_{i+1}) + p(t_i)}{2 \Delta t} \\
+& = p'(t_{i+2}) \\
+& = f(t_{i+2},p(t_{i+2})) \approx y'(t_{i+2})
+\end{align*}
+\end{example}
+
+\begin{remark}\hfill
+    \begin{itemize}
+        \item Due to \eqref{II.38} and \eqref{II.39} all BDF methods are implicit.
+        \item It can be shown, that BDF(2) is zero stable and consistent of order $p=2$ and also convergent of order $p=2$. The proof relies on Taylor expansion.
+    \end{itemize}
+\end{remark}
+
+\subsubsection*{Stiff ODEs}
+\begin{example}[mass-spring system]
+Let $m=25 \textrm{kg}$, spring sonstant $D=5000 \textrm{N/m}$, damping $\sigma = 4000 \textrm{kg/s}$ and consider
+\[
+m u''(t) + \sigma u'(t) + D u(t) = 0, ~ u(0) = 0.05 \textrm{m}, ~ u'(0) = 10 \textrm{m/s}.
+\]
+The roots of the characteristic polynomial are given by
+\[
+\lambda_{1,2} = -80 \pm \sqrt{6200},
+\]
+i.e.
+\[
+\lambda_1 \approx -158.74 \und \lambda_2 \approx -1.26.
+\]
+The solution is approximated by
+\[
+u(t) \approx - 0.064 \cdot \exp(-158.74 t) + 0.114 \exp(-1.26 t). \footnote{We ignore the units.}
+\]
+Remember that we wanted $|R(\Delta t\cdot\lambda)|<1$. But since the first summand is very small, the second summand is cominant and the first summand is almos neglibible. Regarding $\lambda_2$, the stability is easy to "buy" by choosing $\Delta t = 0.5$, but for $\lambda_1$ we need a much smaller $\Delta t$, despite the fact that its influence is much smaller.
+\end{example}
+
+
+
+
 
 
 
