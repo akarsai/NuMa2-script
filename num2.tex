@@ -339,7 +339,7 @@ On $K$ the function $f$ is Lipschitz (with respect to $y$) with a Lipschitz-cons
 \]
 This can be seen by the integral representation of $y(t)$. Applying Grönwall's Lemma with $\gamma=L$ yields
 \begin{equation}
-\norm{y(t)-z(t)}\leq\delta\cdot e^{L(t-t_0)} \tag{I.5}
+\norm{y(t)-z(t)}\leq\delta\cdot e^{L(t-t_0)} \labtag{I.5}
 \end{equation}
 and by choosing $\delta\leq\bar\delta\cdot e^{L(a-b)}$ it holds $\norm{y(t)-z(t)}\leq \bar\delta$ for all $t\in I$. Thus it holds $(t,z(t))\in K$ for $t\in[a,b]$ and hence we have shown \textit{(i)}.
 
@@ -354,7 +354,7 @@ Let us consider the ODE
 y'&=\lambda y, ~ \lambda \in \R\\
 y(0)&=y_0
 \end{align*}
-Here we have $L=|\lambda|$. The equation (I.5) gives
+Here we have $L=|\lambda|$. The equation \eqref{I.5} gives
 \[
 |y(t)-z(t)|\leq e^{|\lambda|\cdot t} |y_0-z_0|.
 \]
@@ -493,7 +493,7 @@ we denote the image of the mapping $t\to \Phi(t,y_0)$. The set $\mathcal{O}(y_0)
 \begin{example}[Predator-Prey-Model, Räuber-Beute-Modell]
 Let $x$ represent the number of prey (maybe a goat) and $y$ the number of the predators (maybe a wolf). We can model
 \begin{align*}
- x'&=x(a-by) \tag{I.6} \\
+ x'&=x(a-by) \labtag{I.6} \\
  y'&=y(-c+dx)
 \end{align*}
 where $a,b,c,d\in\R_{>0}$. In the absence of preadotrsthe number of prey is growing exponentially. An increase in the number of predators means a decrease in the number of preys. Note that the decrease of the preys is propotional to $x\cdot y$. In the absence of preys, the predators die. An increase in the number of preys means an increase in the number of predators.
@@ -504,7 +504,7 @@ These equations belong to the Lotha-Volterra equations.
 
 The origin $(0,0)$ is the only equilibrium point on the boundary of the state space $\R^{2}_{\geq 0}$. In the interior of $\R^2_{\geq 0}$ there exists also only one equilibrium point which is given by $(\bar x, \bar y)=(\tfrac{c}{d},\tfrac{a}{b})$.
 
-The curves of the solutions are closed. To see this, reconsider (I.6). Using simple calculations we get
+The curves of the solutions are closed. To see this, reconsider \eqref{I.6}. Using simple calculations we get
 \[
 x'\Big(\frac{c }{x}-d\Big)=(a-by)(c-dx)
 \]
@@ -552,16 +552,17 @@ No proof.
 The function $V$ from theorem I.24 is called Ljapunov-function.
 \end{remark}
 
+\newpage
 \section{Numerics of ODEs}
 \begin{motivation}
      In the following we only consider first order ODEs for a bounded interval $[a,b]\subseteq R$ and a given function $f:[a,b]\times \R \to \R$. We seek for a function $y: [a,b]\to \R$ such that
-     \footnote {We assume in (II.1) that $f$ is sufficiently small, such that all necessery (Taylor-)expansions can be built and we also have uniqueness and existence of a solution for the IVP.}
+     \footnote {We assume in \eqref{II.1} that $f$ is sufficiently small, such that all necessery (Taylor-)expansions can be built and we also have uniqueness and existence of a solution for the IVP.}
      \begin{align*}
-     y'(t)&= f(t,y(t)) ~~ \forall t\in[a,b] \tag{II.1}
+     y'(t)&= f(t,y(t)) ~~ \forall t\in[a,b] \labtag{II.1}
      \end{align*}
      with initial condition
      \begin{align*}
-     y'(a) = \hat y. \tag{II.2}
+     y'(a) = \hat y. \labtag{II.2}
      \end{align*}
      We devide the interval $[a,b]$ by
      \[
@@ -604,7 +605,7 @@ y_{i+1}=y_i+\Delta t \cdot f(t_\ipo,y(t_{i+1})), ~~i=0,\dots,n-1.
 \subsection{One-Step Methods}
 "For computing $y_{i+1}$ of $y$ we only use the information at $t_i$."
 \begin{definition}[One-Step Method]
-A method for approximating the IVP (II.1) and (II.2) of the form
+A method for approximating the IVP \eqref{II.1} and \eqref{II.2} of the form
 \[
 y_{i+1}=y_i + \Delta t ~\Phi(t_1,y_i,y_\ipo,\Delta t)
 \]
@@ -629,7 +630,7 @@ Note that in the following we use an abuse of notation: In the explicit case we 
 \noindent But how do we measure the quality of our approximation?
 
 \begin{definition}[local discretization error (consistency)]
-A one-step method is \textbf{consistent of order $p\in\N$} if for an ODE (II.1) with some solution $y$ and the local discretization error
+A one-step method is \textbf{consistent of order $p\in\N$} if for an ODE \eqref{II.1} with some solution $y$ and the local discretization error
 \[
 \eta(t,\Delta t)=y(t)+\Delta t \cdot \Phi\Big(t,y(t),y(t+\Delta t),\Delta t\Big) - y(t+\Delta t)
 \]
@@ -671,7 +672,7 @@ for $\Delta t \to 0$, since $y''$ is bounded in $[t,t+\Delta t]$.
 \end{proof}
 
 \begin{definition}[Convergence of one-step methods]
-A one-step method with starting value $y_0=y(0)+O(\Delta t^p),~\Delta t \to 0$ is \textbf{convergent of order $p\in\N$} with respect to the IVP (II.1) and (II.2) if for the approximation $y_i$ of the solution $y(t_i)$ the \textbf{global approximation error}
+A one-step method with starting value $y_0=y(0)+O(\Delta t^p),~\Delta t \to 0$ is \textbf{convergent of order $p\in\N$} with respect to the IVP \eqref{II.1} and \eqref{II.2} if for the approximation $y_i$ of the solution $y(t_i)$ the \textbf{global approximation error}
 \[
 e(t_i,\Delta t)=y(t_i)-y_i
 \]
@@ -710,14 +711,14 @@ what ends the proof.
 \end{proof}
 
 \begin{theorem}[Convergence of one-step methods]
-Let $\Phi$ be an incremental function of a one-step method for the IVP (II.1) and (II.2) with
+Let $\Phi$ be an incremental function of a one-step method for the IVP \eqref{II.1} and \eqref{II.2} with
 \begin{align*}
-\l| \Phi(t,u,w,\Delta t) - \Phi(t,v,w,\Delta t)\r| & \leq L |u-v| \tag{II.3} \\
-\l| \Phi(t,w,u,\Delta t) - \Phi(t,w,v,\Delta t)\r| & \leq L |u-v| \tag{II.4}
+\l| \Phi(t,u,w,\Delta t) - \Phi(t,v,w,\Delta t)\r| & \leq L |u-v| \labtag{II.3} \\
+\l| \Phi(t,w,u,\Delta t) - \Phi(t,w,v,\Delta t)\r| & \leq L |u-v| \labtag{II.4}
 \end{align*}
 with $L\in \R$. Then it holds for $\Delta t < \tfrac{1}{L}$ that
 \[
-\l| e(t_{i+1},\Delta t)\r| \leq \l( |e(t_0,\Delta t)| + \frac{(t_i+1-t_0)}{1-\Delta t\cdot L}\cdot \frac{\eta(\Delta t)}{\Delta t}\r) e^{2 \cdot \frac{t_{i+1}-t_0}{1-\Delta t}\cdot L}\tag{II.5}
+\l| e(t_{i+1},\Delta t)\r| \leq \l( |e(t_0,\Delta t)| + \frac{(t_i+1-t_0)}{1-\Delta t\cdot L}\cdot \frac{\eta(\Delta t)}{\Delta t}\r) e^{2 \cdot \frac{t_{i+1}-t_0}{1-\Delta t}\cdot L}\labtag{II.5}
 \]
 for $i=0,\dots,n-1$, where
 \[
@@ -740,7 +741,7 @@ e(t_\ipo,\Delta t)
 & = y(t_i)+\Delta t \Phi\l(t_i, y(t_i),y(t_\ipo),\Delta t\r) - \eta(t_i,\Delta t) \\
 & ~~~ - y_i -\Delta t \Phi \l(t_i, y_i, y_\ipo, \Delta t\r) \pm \Delta t \Phi \l(t_i,y(t_i),y_\ipo,\Delta t\r).
 \end{align*}
-Using (II.3) and (II.4) we obtain
+Using \eqref{II.3} and \eqref{II.4} we obtain
 \begin{align*}
 |e(t_\ipo,\Delta t)|
 & \leq |e(t_i,\Delta t)| + \Delta t L|y(t_\ipo)-y_\ipo| + \Delta t L|y(t_i)-y_i| - \eta(t_i,\Delta t) \\
@@ -779,11 +780,11 @@ Inserting this into ($\ast$) gives the result.
 \end{proof}
 
 \begin{theorem}
-If a one-step method with Lipschitz conditions (II.3) and (II.4) is consistent of order $p\in\N$ for an ODE (II.1) and if the initial value $y_0$ meets
+If a one-step method with Lipschitz conditions \eqref{II.3} and \eqref{II.4} is consistent of order $p\in\N$ for an ODE \eqref{II.1} and if the initial value $y_0$ meets
 \[
 y_0 = \hat y_0 + O(\Delta t^p),
 \]
-then the method is convergent of order $p$ with respect to (II.1) and (II.2).
+then the method is convergent of order $p$ with respect to \eqref{II.1} and \eqref{II.2}.
 \end{theorem}
 
 \begin{remark}\hfill
@@ -793,7 +794,7 @@ then the method is convergent of order $p$ with respect to (II.1) and (II.2).
      \[
      \l|f(t,y_1(t))-f(t,y_2(t))\r|\leq \hat L |y_1-y_2|
      \]
-     is large, then $L$ from (II.4) and (II.5) will also be large.
+     is large, then $L$ from \eqref{II.4} and \eqref{II.5} will also be large.
      \item If the initial condition of the explicit Euler-method meets
      \[
      y_0 = \hat y + O(\Delta t)
@@ -1074,7 +1075,7 @@ which is a contraction in the Banachspace $(\R^{s\cdot m}, \norm{\cdot}_\infty)$
 \begin{remark}
 After Definition II.2 (consistency) we saw, that the minimum requirement for a consistent method is
 \[
-\lim_{\Delta t \to 0} \Phi(t,y(t),y(t+\Delta t),\Delta t) = f(t,y). \tag{II.6}
+\lim_{\Delta t \to 0} \Phi(t,y(t),y(t+\Delta t),\Delta t) = f(t,y). \labtag{II.6}
 \]
 \end{remark}
 
@@ -1099,7 +1100,7 @@ and hence
 In summary, we have proven the following result.
 
 \begin{lemma}
-A Runge-Kutta method given by $(A,b,c)$ is consistent in the sense of (II.6) if and only if it holds
+A Runge-Kutta method given by $(A,b,c)$ is consistent in the sense of \eqref{II.6} if and only if it holds
 \[
 \sum_{j=1}^{s }b_j = 1.
 \]
@@ -1112,15 +1113,15 @@ For a Runge-Kutta method $(A,b,c)$ it holds
 \begin{enumerate}[(a)]
 \item The method has order of consistency $p\geq1$ if
 \[
-\sum_{j=1}^{s }b_j = 1 \und \sum_{\nu=1 }^{s }a_{j\nu} = c_j \tag{II.7}
+\sum_{j=1}^{s }b_j = 1 \und \sum_{\nu=1 }^{s }a_{j\nu} = c_j \labtag{II.7}
 \]
 holds for all $j=1,\dots,s$.
-\item The method has order of consistency $p\geq2$ if it holds (II.7) and
+\item The method has order of consistency $p\geq2$ if it holds \eqref{II.7} and
 \[
-\sum_{j=1}^{s }b_j c_j = \einhalb \tag{II.8}
+\sum_{j=1}^{s }b_j c_j = \einhalb \labtag{II.8}
 \]
 holds.
-\item The method has order of consistency $p\geq3$ if (II.7), (II.8) and
+\item The method has order of consistency $p\geq3$ if \eqref{II.7}, \eqref{II.8} and
 \[
 \sum_{j=1}^{s }b_jc_j^2 = \einsdurch{3} \und \sum_{j=1}^{s} b_j \sum_{\nu=1}^{s }a_{j\nu} c_\nu = \einsdurch{6}
 \]
@@ -1165,7 +1166,7 @@ y(t_0) & = y_0
 \end{align*}
 can be transformed to an autonomous system
 \begin{align*}
-z'(t) & = \hat f(z(t)) \tag{II.9}\\
+z'(t) & = \hat f(z(t)) \labtag{II.9}\\
 z'(t_0) & = z_0 = \begin{bmatrix} y_0 \\ t_0 \end{bmatrix}
 \end{align*}
 by the transformation
@@ -1175,7 +1176,7 @@ z & =\begin{bmatrix} y \\ s \end{bmatrix} \\
 \end{align*}
 We want to know if the result of an explicit Runge-Kutta method stays the same when we apply the Runge-Kutta method to the autonomous system.
 
-By applying the explicit Runge-Kutta method to the autonomous sytem (II.9), we obtain
+By applying the explicit Runge-Kutta method to the autonomous sytem \eqref{II.9}, we obtain
 \begin{align*}
 z_{i+1} & = z_i + \Delta t \sum_{j=1}^{s} b_j \hat r_j,
 \end{align*}
@@ -1235,7 +1236,7 @@ y'(t) = f(t,y(t)), ~y(t_0)=y_0.
 \]
 We assume that the numerical solution has been carried up to the point $(t_i,y_i)$. We now seek for a recipe to advance it to $(t_{i+1},y_{i+1})$, where $t_{i+1}=t_i+\Delta t$. To do so, we choose $s$ collocation points $c_1,\dots,c_s\in[0,1]$ and then seek for a $s$-th degree polynomial $u_s\in\mathbb{P}_s$, such that it holds
 \begin{align*}
-u_s(t_i) & = y_i \tag{II.10} \\
+u_s(t_i) & = y_i \labtag{II.10} \\
 u_s'(t_i+c_j\Delta t) & = f\Big(t_i+c_j\Delta t,~u_s(t_i+c_j\Delta t)\Big)
 \end{align*}
 for $j=1,\dots,s$.
@@ -1245,10 +1246,10 @@ A \textbf{collocation method} consists of finding such a $u_s$ and setting $y_{i
 But we do not yet know what the relation to a Runge-Kutta method is.
 
 \begin{lemma}
-The collocation method defined by (II.10) is equivalent to a $s$ stage implicit Runge-Kutta method with the coefficients
+The collocation method defined by \eqref{II.10} is equivalent to a $s$ stage implicit Runge-Kutta method with the coefficients
 \begin{align*}
-a_{ji}& =\int_{0}^{c_j }L_i(\tau)~d\tau \tag{II.11} \\
-b_j & = \int_{0}^{1}L_j(\tau )~d\tau,\tag{II.12}
+a_{ji}& =\int_{0}^{c_j }L_i(\tau)~d\tau \labtag{II.11} \\
+b_j & = \int_{0}^{1}L_j(\tau )~d\tau,\labtag{II.12}
 \end{align*}
 where $L_j(\tau)$ is the Lagrangian interpolation polynomial
 \[
@@ -1264,13 +1265,13 @@ Integration gives
 \begin{align*}
 u_s(t_i+c_j\Delta t) & = u_s(t_i) + \Delta t \cdot \sum_{\ell=1 }^{s }r_\ell \int_{0}^{c_j}L_\ell(\tau)~d\tau
 \end{align*}
-for all $j=1,\dots,s$. Inserting for (II.11) gives
+for all $j=1,\dots,s$. Inserting for \eqref{II.11} gives
 \[
 u_s(t_i+c_j\Delta t) = u_s(t_i)+\Delta t  \sum_{\ell=1}^{s}r_\ell a_{j\ell}.
 \]
 Since
 \[
-r_j = u_s'(t_i+c_j\Delta t)\overset{\text{(II.10)}}{=} f\Big(t_i+c_j\Delta t,~u_s(t_i+c_j\Delta t)\Big),
+r_j = u_s'(t_i+c_j\Delta t)\overset{\text{\eqref{II.10}}}{=} f\Big(t_i+c_j\Delta t,~u_s(t_i+c_j\Delta t)\Big),
 \]
 we obtain
 \[
@@ -1283,7 +1284,7 @@ u_s(t_i+\Delta t) = u_s(t_i) + \Delta t \sum_{j=1}^{s }b_j f\Big(t_i+c_j\Delta t
 Since in the collocation method we set $u_s(t_i)= y_i$ and $u_s(t_{i+1})=y_{i+1}$, we have the Runge-Kutta method in ($\ast$) and ($\ast\ast$).
 \end{proof}
 
-We do not know yet if every Runge-Kutta method originates in collocation. In general, this is not true, as the following example demonstrates: Consider the two stage Runge-Kutta method with $c_1=0,~c_2=\tfrac{2}{3}$. Computing $L_1,L_2$ and $a_{ji},b_i$ via (II.11) and (II.12) will give
+We do not know yet if every Runge-Kutta method originates in collocation. In general, this is not true, as the following example demonstrates: Consider the two stage Runge-Kutta method with $c_1=0,~c_2=\tfrac{2}{3}$. Computing $L_1,L_2$ and $a_{ji},b_i$ via \eqref{II.11} and \eqref{II.12} will give
 \[
 \begin{matrix}[c|cc]
      0 & 0 & 0 \\
@@ -1306,16 +1307,16 @@ For $s=1$ the polynomial defined by
 \[
 u(t) = y_i + (t-t_i)f(t_i+c_1\Delta t,~u(t_1+c_1\Delta t))
 \]
-gives a collocation method like in (II.10). For $c_1 = 0$ it gives the explicit Euler method, for $c_1 = 1$ it gives the implicit Euler method and for $c_1=\teinhalb$ the midpoint rule is given. {\rot \texttt{The drawing is missing.}}
+gives a collocation method like in \eqref{II.10}. For $c_1 = 0$ it gives the explicit Euler method, for $c_1 = 1$ it gives the implicit Euler method and for $c_1=\teinhalb$ the midpoint rule is given. {\rot \texttt{The drawing is missing.}}
 \end{example}
 
-We want to know how the order $p$ of an implicit Runge-Kutta method depends on the choice of the collocation method. To answer this question reconsider (II.1), i.e. the ODE
+We want to know how the order $p$ of an implicit Runge-Kutta method depends on the choice of the collocation method. To answer this question reconsider \eqref{II.1}, i.e. the ODE
 \[
 y'(t) = f(t,y(t))
 \]
 and let $v$ be a "candidate" solution. The defect is defined as
 \[
-d(t,v) = v'(t) - f(t,v(t)). \tag{II.13}
+d(t,v) = v'(t) - f(t,v(t)). \labtag{II.13}
 \]
 When the defect is small, the error $\norm{y(t) = v(t)}$ is small too, because if $d(t,v)=0$ our candidate $v$ is the solution.
 
@@ -1335,7 +1336,7 @@ The exact solution of this ODE (theorem I.12) is given by
 \[
 v(t) = e^{(t-t_0)\Lambda} + \int_{t_0}^{t }e^{(t-\tau)\Lambda} D(\tau)~d\tau
 \]
-wheras the solution of (II.13) is given by
+wheras the solution of \eqref{II.13} is given by
 \[
 y(t) = e^{(t-t_0)\Lambda}y_0 ~ t\geq t_0.
 \]
@@ -1396,7 +1397,7 @@ Then the quadrature rule has exactness of order $2s$.
 \definecolor{shadethmcolor}{HTML}{EEEEEE}
 
 \begin{theorem}
-An implicit Runge method $(A,b,c)$ generated by the collocation method (II.10) has for $f\in C^p(\R\times\R^d,\R^d)$ the consistency order $2s$ if and only if the quadrature formula defined by the nodes $c$ and weights $b$ meet the requirements of the previous excursion theorem, i.e. if it is of order $2s$.
+An implicit Runge method $(A,b,c)$ generated by the collocation method \eqref{II.10} has for $f\in C^p(\R\times\R^d,\R^d)$ the consistency order $2s$ if and only if the quadrature formula defined by the nodes $c$ and weights $b$ meet the requirements of the previous excursion theorem, i.e. if it is of order $2s$.
 \end{theorem}
 \begin{proof}
 We only give a scetch of the proof. Use theorem II.15 and $u(t_i)=y_i$, where $y_{i+1}$ is the solution of the collocation method and $y(t_{i+1})$ is the true solution. We obtain
@@ -1405,13 +1406,13 @@ y_{i+1}-y(t_{i+1}) = \int_{t_i}^{t_{i+1}}\Xi(t_{i+1},\tau)d(\tau,u)~d\tau.
 \]
 Applying a quadrature rule with $w(t)=1$ and the quadrature points $t_i+c_1\Delta t, \dots, t_i + c_s\Delta t$ leads to
 \[
-y_\ipo - y(t_\ipo) = \sum_{j=1}^{s } b_j d(t_i+c_j\Delta t, u) + \textrm{error of quadrature from (II.14)}.
+y_\ipo - y(t_\ipo) = \sum_{j=1}^{s } b_j d(t_i+c_j\Delta t, u) + \textrm{error of quadrature from \eqref{II.14}}.
 \]
-According to (II.10) it holds
+According to \eqref{II.10} it holds
 \begin{align*}
 d(t_i+c_j\Delta t, u)
 & =  u'(t_i+c_j\Delta t) - f(t_i+c_j\Delta t, u(t_i+c_j\Delta t))\\
-{\tiny\textrm{(II.10)}} & = 0.
+{\tiny\textrm{\eqref{II.10}}} & = 0.
 \end{align*}
 Thus, according to excursion theorem the order of quadrature with the weight functions $w(t)=1, ~0\leq t \leq 1$ and $c_1,\dots, c_s$ is $2s$.
 \end{proof}
@@ -1441,7 +1442,7 @@ For $s=2$ we have
 \[
 p_1(t)=t^2 -t + \tfrac{1}{6},
 \]
-so $c_1 = \tfrac{1}{2} - \tfrac{\sqrt{3}}{6}$ and $c_2=\tfrac{1}{2}+\tfrac{\sqrt{3}}{6}$ and by (II.11) and (II.12) from theorem (II.14) we have the Butcher table given by
+so $c_1 = \tfrac{1}{2} - \tfrac{\sqrt{3}}{6}$ and $c_2=\tfrac{1}{2}+\tfrac{\sqrt{3}}{6}$ and by \eqref{II.11} and \eqref{II.12} from theorem II.14 we have the Butcher table given by
 \[
 \begin{matrix}[c|cc]
 \teinhalb - \tfrac{\sqrt{3}}{6} & \tfrac{1}{4} & \tfrac{1}{4}-\tfrac{\sqrt{3}}{6} \\
@@ -1477,7 +1478,7 @@ Consider a vector valued IVP given by
     \begin{aligned}
         y'(t) & = f(t,y(t)) \\
         y(0) & = \hat y_0
-    \end{aligned} \tag{II.15}
+    \end{aligned} \labtag{II.15}
 \end{equation}
 We want to know what happens with small perturbations of $u_i$ at some $t_i$. We have
 \[
@@ -1542,14 +1543,14 @@ We thus consider the scalar test problem
 \begin{aligned}
     y'(t) & = \lambda y(t) \\
     y(0) & = 1.
-\end{aligned}\tag{II.D}
+\end{aligned}\labtag{II.D}
 \]
 This problem is called the \textbf{Dahlquist Test-Problem}.
 
 \begin{definition}[A-stability]
-We call a numerical method \textbf{A-stable} (absolute stable) if its approximates $y_i$ of (II.D) for each $\lambda \in \C^-=\l\{\lambda\in\C ~|~ \real(\lambda)<0\r\}$ with arbitrary but fixed $\Delta t$ are contractive, i.e. if
+We call a numerical method \textbf{A-stable} (absolute stable) if its approximates $y_i$ of \eqref{II.D} for each $\lambda \in \C^-=\l\{\lambda\in\C ~|~ \real(\lambda)<0\r\}$ with arbitrary but fixed $\Delta t$ are contractive, i.e. if
 \[
-|y_{i+1}| < |y_i| \tag{II.16}
+|y_{i+1}| < |y_i| \labtag{II.16}
 \]
 for all $i\in\N$
 \end{definition}
@@ -1557,14 +1558,14 @@ for all $i\in\N$
 \begin{example}
 \hfill
 \begin{enumerate}[(a)]
-    \item The explicit Euler method was given by $y_{i+1} = y_i + \Delta t f(t_i,y(t_i))$. Applying this on (II.D) we obtain
+    \item The explicit Euler method was given by $y_{i+1} = y_i + \Delta t f(t_i,y(t_i))$. Applying this on \eqref{II.D} we obtain
     \begin{align*}
     y_{i+1} & = y_i + \Delta t \cdot\lambda\cdot y_i \\
     & = (1+\Delta t\lambda) y_i,
     \end{align*}
     so we have to choose $\lambda \Delta t \in \l\{z\in\C~|~|z+1|<1\r\}$, since otherwise $(1+\Delta t \cdot \lambda)\not< 1$. Hence, the explicit Euler method is \textbf{not stable}.
 
-    \item The implicit Euler method was given by $y_{i+1}=y_i+\Delta t f(t_{i+1},y_{i+1})$. Applying this to (II.D) yields
+    \item The implicit Euler method was given by $y_{i+1}=y_i+\Delta t f(t_{i+1},y_{i+1})$. Applying this to \eqref{II.D} yields
     \begin{align*}
     y(t_{i+1}) = y_i + \Delta t \cdot \lambda y_{i+1},
     \end{align*}
@@ -1578,13 +1579,13 @@ for all $i\in\N$
     \[
     y_{i+1} = y_i + \Delta t \sum_{j=1}^{s }b_j f(t_i+c_j\Delta t, k_j).
     \]
-    Applying this to (II.D) yields
+    Applying this to \eqref{II.D} yields
     \[
     y_i + \Delta t \lambda \sum_{j=1}^{s }b_j k_j.
     \]
     Remember that $k_j$ was given by
     \[
-    k_j = y_i + \Delta t \sum_{\nu=1}^{s }a_{j\nu}f(t_i+c_j\Delta t,k_\nu) \overset{\tiny\textrm{(II.D)}}{=}y_i + \Delta t \lambda \sum_{\nu=1}^{s }a_{j\nu} b_j.
+    k_j = y_i + \Delta t \sum_{\nu=1}^{s }a_{j\nu}f(t_i+c_j\Delta t,k_\nu) \overset{\tiny\textrm{\eqref{II.D}}}{=}y_i + \Delta t \lambda \sum_{\nu=1}^{s }a_{j\nu} b_j.
     \]
     Rewriting with
     \[
@@ -1693,20 +1694,20 @@ Consider an equidistant grid of points and a one-step method
 \begin{aligned}
 y_{\Delta t}(t+\Delta t) & = y_{\Delta t}(t) + \Delta t \Phi(t,y_{\Delta t}(t),\Delta t) \\
 y_{\Delta t}(t_0) &= y_0
-\end{aligned}\tag{II.16}
+\end{aligned}\labtag{II.16}
 \]
 with order of consistency $p\in\N$ and local error (Def II.2)
 \[
-\eta(t+\Delta t) = y(t) - \Delta t \Phi\big( t,y(t),\Delta t \big) - y(t+\Delta t) = O(\Delta t^{p+1}).\tag{II.17}
+\eta(t+\Delta t) = y(t) - \Delta t \Phi\big( t,y(t),\Delta t \big) - y(t+\Delta t) = O(\Delta t^{p+1}).\labtag{II.17}
 \]
 If $\Phi$ is sufficiently often differentiable, we can expand the error and obtain
 \[
-\eta(t,\Delta t) = \sum_{i=p+1}^{N+1}g_i(t) \Delta t^i + O(\Delta t^{N+2}). \tag{II.18}
+\eta(t,\Delta t) = \sum_{i=p+1}^{N+1}g_i(t) \Delta t^i + O(\Delta t^{N+2}). \labtag{II.18}
 \]
 The next theorem shows that a similar expansion is possible for the global error $e(t,\Delta t)$.
 
 \begin{theorem}[Gregg]
-Let $f(t,y)$ and $\Phi$ be sufficiently often continuously differentiable on $S=\l\{(t,y) ~|~ t_0 \leq t \leq t_{\textrm{end}},~y\in\R^d\r\}$ and let us assume that the local error $\eta$ has the expansion (II.18). Then the global error $e(t,\Delta t)$ oafter $n$-steps with stepsize $\Delta t$ has in $t^*=t_0 + n\Delta t$ has an asymptotic expansion of the form
+Let $f(t,y)$ and $\Phi$ be sufficiently often continuously differentiable on $S=\l\{(t,y) ~|~ t_0 \leq t \leq t_{\textrm{end}},~y\in\R^d\r\}$ and let us assume that the local error $\eta$ has the expansion \eqref{II.18}. Then the global error $e(t,\Delta t)$ after $n$-steps with stepsize $\Delta t$ has in $t^*=t_0 + n\Delta t$ has an asymptotic expansion of the form
 \[
 e(t,\Delta t) = e_p(t^*)\Delta t^p + e_{p+1}(t^*)\Delta t^{p+1} + \dots + e_N(t^*)\Delta t^N + E_{N+1} (t^*,\Delta t) \Delta t^{N+1},
 \]
@@ -1723,7 +1724,7 @@ where
 \]
 We now set
 \[
-\Phi_y(t,y(t),\Delta t) = f_y(t,y)d\tau + O(\Delta t) \tag{II.19}.
+\Phi_y(t,y(t),\Delta t) = f_y(t,y)d\tau + O(\Delta t) \labtag{II.19}.
 \]
 We construct a method of order $p+1$ such that
 \[
@@ -1731,22 +1732,22 @@ y(t) - y_{\Delta t} (t) = e_p(t) \Delta t^p + O(\Delta t^{p+1}).
 \]
 We set
 \[
-\bar y_{\Delta t}(t) = e_p(t)\Delta t^p + y_{\Delta t}(t) \tag{II.20}.
+\bar y_{\Delta t}(t) = e_p(t)\Delta t^p + y_{\Delta t}(t) \labtag{II.20}.
 \]
 For the "new" one step method we thus have
 \[
 \begin{aligned}
 \bar y_{\Delta t}(t+\Delta t) &= \bar y_{\Delta t} (t) + \Delta t \bar\Phi \l(t, \bar y_{\Delta t}(t), \Delta t\r) \\ \bar y_{\Delta t} (t_0) & = y_0.
-\end{aligned} \tag{II.21}
+\end{aligned} \labtag{II.21}
 \]
 We then have
 \begin{align*}
-\bar y_{\Delta t}(t+\Delta t) &\overset{\textrm{(II.20)}}{=} e_p(t+\Delta t) \Delta t^p + y_{\Delta t}(t + \Delta t) + O(\Delta t^{p+1}) \\
-& \overset{\textrm{(II.16)}}{=} e_p(t+\Delta t) \Delta t^p + y_{\Delta t}(t) + \Delta t \Phi(t,y(t),\Delta t)  + O(\Delta t^{p+1})\\
-& ~~~\!=~~ e_p(t+\Delta t)\Delta t^p \overset{\textrm{(II.20)}}{+} \bar y_{\Delta t}(t) - e_p(t) \Delta t^p \\ & ~~~~~~+ \Delta t \Phi\Big(t,\bar y_{\Delta t}(t) - e_p(t)\Delta t,\Delta t\Big)  + O(\Delta t^{p+1})\\
+\bar y_{\Delta t}(t+\Delta t) &\overset{\textrm{\eqref{II.20}}}{=} e_p(t+\Delta t) \Delta t^p + y_{\Delta t}(t + \Delta t) + O(\Delta t^{p+1}) \\
+& \overset{\textrm{\eqref{II.16}}}{=} e_p(t+\Delta t) \Delta t^p + y_{\Delta t}(t) + \Delta t \Phi(t,y(t),\Delta t)  + O(\Delta t^{p+1})\\
+& ~~~\!=~~ e_p(t+\Delta t)\Delta t^p \overset{\textrm{\eqref{II.20}}}{+} \bar y_{\Delta t}(t) - e_p(t) \Delta t^p \\ & ~~~~~~+ \Delta t \Phi\Big(t,\bar y_{\Delta t}(t) - e_p(t)\Delta t,\Delta t\Big)  + O(\Delta t^{p+1})\\
 & ~~~\!=~~ \bar y_{\Delta t}(t) + \Delta t \Phi\Big(t,\bar y_{\Delta t}(t) - e_p(t)\Delta t, \Delta t\Big) \\ & ~~~~~~+ \Big( e_p(t+\Delta t) - e_p(t) \Big)\cdot \Delta t^{p} + O(\Delta t^{p+1}).
 \end{align*}
-Comparing (II.21) with this result gives
+Comparing \eqref{II.21} with this result gives
 \[
 \Phi\Big(t,y_{\Delta t}(t) - e_p(t)\Delta t, \Delta t\Big) + \Big( e_p(t+\Delta t) - e_p(t) \Big)\Delta t^{p-1} = \bar \Phi ( t, y_{\Delta t}(t),\Delta t).
 \]
@@ -1761,20 +1762,20 @@ For $\bar \eta$ it holds
 & ~~~+  e_p'(t) \Delta t^{p+1} - y(t+\Delta t) + O(\Delta t^{p+1}) \\
 & = \Delta t^{p+1} \Big( g_{p+1}(t) + e_p'(t) - f_y(t,y(t)) e_p(t) \Big) + O(\Delta t^{p+2})
 \end{align*}
-and thus the method (II.21) has order of consistency $p+1$, if $e_p(t)$ solves the IVP
+and thus the method \eqref{II.21} has order of consistency $p+1$, if $e_p(t)$ solves the IVP
 \begin{align*}
 e_p(t) & = f_y(t,y(t)) e_p(t) + g_{p+1}(t) \\
 e_p(t_0) & = 0.
 \end{align*}
-For the global error of (II.21) it holds (according to theorem II.7)
+For the global error of \eqref{II.21} it holds (according to theorem II.7)
 \[
 y(t^*) - \bar y_{\Delta t}(t^*) = E_{p+1}(t,\Delta t) \Delta t^{p+1}
 \]
-and with (II.20) it holds
+and with \eqref{II.20} it holds
 \[
 e(t^*,\Delta t) = e_p(t^*)\Delta t^p + E_{p+1} (t^*,\Delta t)\Delta t^{p+1}.
 \]
-For the next step $e_{p+1}(t)$ we start the proof at (II.21).
+For the next step $e_{p+1}(t)$ we start the proof at \eqref{II.21}.
 \end{proof}
 
 With theorem II.23 in our hands, we can
@@ -1793,7 +1794,7 @@ With theorem II.23 in our hands, we can
         \begin{aligned}
         y(t_{i+1}) & = y_{i+1}^{\Delta t} + e_p(t_{i+1}) \Delta t^p + O(\Delta t^{p+1}) \\
         y(t_{i+1}) & = y_{i+1}^{\Delta t/2} + e_p(t_{i+1}) \frac{\Delta t}{2}^p + O(\Delta t^{p+1}).
-        \end{aligned} \tag{II.23}
+        \end{aligned} \labtag{II.23}
         \]
         Thus, substracting $(\tfrac{1}{2})^p$ times the first line from the second line, we get
         \[
@@ -1808,13 +1809,13 @@ With theorem II.23 in our hands, we can
         \tilde y_{i+1}^{\Delta t} = \frac{y_\ipo^{\Delta t/2} - \l(\frac{1}{2}\r)^p y_\ipo^{\Delta t}}{1-\l(\frac{1}{2}\r)^p} + O(\Delta t^{p+1})
         \]
         is an $O(\Delta t^{p+1})$ approximation of $y(t_{i+1})$.
-    \item Using (II.23) and substracting the second line from the first line, we get
+    \item Using \eqref{II.23} and substracting the second line from the first line, we get
     \[
     O(\Delta t^{p+1}) + \frac{y_\ipo^{\Delta t}-y_\ipo^{\Delta t/2}}{1-\l(\frac{1}{2}\r)^p} = e_p(t_i) \Delta t^p.
     \]
     Setting
     \[
-    \textrm{EST}_\ipo^{(\textrm{g})} = \frac{ \norm{ y_{i+1}^{\Delta t}-y_\ipo^{\Delta t/2}}}{1-\l(\frac{1}{2}\r)^p}, \tag{II.24}
+    \textrm{EST}_\ipo^{(\textrm{g})} = \frac{ \norm{ y_{i+1}^{\Delta t}-y_\ipo^{\Delta t/2}}}{1-\l(\frac{1}{2}\r)^p}, \labtag{II.24}
     \]
     for some given tolerance $\textrm{TOL}$ of the global error, we can choose a suitable stepsize, by computing $y_\ipo^{\Delta t}$ and $y_\ipo^{\Delta t/2}$ and then
     \begin{itemize}
@@ -1829,7 +1830,7 @@ Consider a explicit one step method $\Phi$, once with stepsize $\Delta t$ (we de
 \[
 \bar y_\ipo^{\Delta t} = y_i^{\Delta t} + \frac{\Delta t}{2} \Phi\l(t_i,y_i^{\Delta t},\frac{\Delta t}{2}\r) + \frac{\Delta t}{2} \Phi \l( t_i+\frac{\Delta t}{2}, y_i^{\Delta t}+\Delta t \Phi \l(t_i, y_i^{\Delta t}, \frac{\Delta t}{2}\r), \frac{\Delta t}{2} \r).
 \]
-By (II.18), we know that the local error $\eta(t,\Delta t)=O(\Delta t^{p+1})$ can be written as
+By \eqref{II.18}, we know that the local error $\eta(t,\Delta t)=O(\Delta t^{p+1})$ can be written as
 \[
 \eta(t,\Delta t) = g_{p+1}(t)\Delta t^{p+1} + O(\Delta t^{p+2}).
 \]
@@ -1982,7 +1983,7 @@ We obtain the methods
 \end{example}
 
 \begin{definition}[Multistep Method]
-A method for solving the IVP (II.1) and (II.2) of the form
+A method for solving the IVP \eqref{II.1} and \eqref{II.2} of the form
 \[
 \sum_{j=0}^{m }\alpha_j y_{i+j} = \Delta t \Phi(t_i,y_i,\dots,y_{i+m},\Delta t)
 \]
@@ -2015,7 +2016,7 @@ In the case of $p=1$ we call it \textbf{consistent}.
 \begin{theorem}
 A linear multistep method has order of consistency $p\in\N$ if and only if it holds
 \[
-\sum_{j=0}^{m }\alpha_j = 0 \und \sum_{j=0}^{m }a_j j^q = q \cdot \sum_{j=0}^{m} \beta_j j^{q-1} \tag{II.25}
+\sum_{j=0}^{m }\alpha_j = 0 \und \sum_{j=0}^{m }a_j j^q = q \cdot \sum_{j=0}^{m} \beta_j j^{q-1} \labtag{II.25}
 \]
 for $q=1,\dots, p$.
 \end{theorem}
@@ -2046,18 +2047,18 @@ and
 \[
 \sigma(\xi) = \sum_{j=0}^{m} \beta_j \xi^j.
 \]
-They are also called \textbf{generating polynmials}. We can thus rewrite the conditions (II.25) in theorem II.26 as
+They are also called \textbf{generating polynmials}. We can thus rewrite the conditions \eqref{II.25} in theorem II.26 as
 \[
 \varrho(1) = \sum_{j=1}^{m} \alpha_j, ~~~ \sigma(1) = \sum_{j=1}^{m} \beta_j, ~~~ \varrho'(\xi) = \sum_{j=1}^{m} j \alpha_j \xi^{j-1}.
 \]
 For $q=p=1$ we hence have to check
 \[
-\varrho(1) = 0 \und \varrho'(1) = \sigma(1) \tag{II.26}
+\varrho(1) = 0 \und \varrho'(1) = \sigma(1) \labtag{II.26}
 \]
 to obtain consistency.
 
 \begin{definition}
-A multistep method with starting values $y_j = y(t_j) + O(\Delta t^p), ~\Delta t\to 0$ for $j=0,\dots,m-1$ is convergent of order $p\in \N$ with respect to (II.1) and (II.2) if for a time step $\Delta t$ the produced approximation $y_i$ of $y(t_i)$ for $t_i = a+i \Delta t, ~ t_i \in [a,b]$ the \textbf{global error}
+A multistep method with starting values $y_j = y(t_j) + O(\Delta t^p), ~\Delta t\to 0$ for $j=0,\dots,m-1$ is convergent of order $p\in \N$ with respect to \eqref{II.1} and \eqref{II.2} if for a time step $\Delta t$ the produced approximation $y_i$ of $y(t_i)$ for $t_i = a+i \Delta t, ~ t_i \in [a,b]$ the \textbf{global error}
 \[
 e(t_i, \Delta t) = y(t_i) - y_i
 \]
@@ -2070,28 +2071,28 @@ If the above conditions also hold for $o(1)$ instead of $O(\Delta t^p)$, we call
 
 In case of $\beta_j=0$ for all $j$, we have $\Phi = 0$ and thus, the linear multistep method becomes a linear \textbf{homogeneous difference equation}, i.e.
 \[
-\sum_{j=0}^{m }\alpha_j y_{i+j} = 0. \tag{II.27}
+\sum_{j=0}^{m }\alpha_j y_{i+j} = 0. \labtag{II.27}
 \]
 
 \begin{theorem}
 If the first characteristic polynomial
 \[
-\varrho(\xi) = \sum_{j=0}^{m} \alpha_j \xi^i \tag{II.28}
+\varrho(\xi) = \sum_{j=0}^{m} \alpha_j \xi^i \labtag{II.28}
 \]
-of (II.27) has only pairwise different roots $\xi_1,\dots,x_m\in\C$, then the solution sequence $\folge{y}$ of (II.27) is of the form
+of \eqref{II.27} has only pairwise different roots $\xi_1,\dots,x_m\in\C$, then the solution sequence $\folge{y}$ of \eqref{II.27} is of the form
 \[
-y_n = \sum_{k=1 }^{m } \gamma_k \xi_k^n, \tag{II.29}
+y_n = \sum_{k=1 }^{m } \gamma_k \xi_k^n, \labtag{II.29}
 \]
 where $\gamma_k\in\C$ for all $k$.
 \end{theorem}
 \begin{proof}
 We only give a sketch. We need to show
 \begin{enumerate}[(a)]
-    \item (II.29) is a solution of (II.27) and
+    \item \eqref{II.29} is a solution of \eqref{II.27} and
     \item the solution space has dimension $m$ and $(\xi^n_k)_{n\in\N}$ is a basis.
 \end{enumerate}
 \begin{enumerate}[{ad }(a).]
-    \item By plugging in (II.29) we obtain
+    \item By plugging in \eqref{II.29} we obtain
     \[
     \sum_{j=0}^{m }\alpha_j y_{i+j} = \sum_{j=0}^{m} \alpha_j \sum_{k=1}^{m}\gamma_k \xi_k^{i+j} = \sum_{k=1}^{m }\gamma_k\xi_k^i \cdot \underbrace{\sum_{j=0}^{m} \alpha_j \xi_k^j}_{=\varrho(\xi_k)=0} = 0.
     \]
@@ -2118,7 +2119,7 @@ y_{i+2} + 4 y_{i+1} - 5y_i = 0.
 \]
 According to theorem II.28 we have
 \[
-y_n = \gamma_1 \xi_1^n + \gamma_2 \xi_2^n, \tag{II.31}
+y_n = \gamma_1 \xi_1^n + \gamma_2 \xi_2^n, \labtag{II.31}
 \]
 where we have determined $\gamma_1,\gamma_2$ by the initial conditions and $\xi_1$ and $\xi_2$ are the roots of the first characteristic polynomial. We have
 \[
@@ -2128,7 +2129,7 @@ so it holds $\xi_1 = 1$ and $\xi_2 = -5$. Setting
 \[
 y_0 = 0.1 \und y_1=0.1 + \varepsilon,
 \]
-where $\varepsilon>0$ is a small perturbation, with (II.31) we obtain
+where $\varepsilon>0$ is a small perturbation, with \eqref{II.31} we obtain
 \[
 0.1 = \gamma_1 + \gamma_2 \und 0.1 + \varepsilon = \gamma_1 - 5 \gamma_2,
 \]
@@ -2140,7 +2141,7 @@ Hence
 \[
 y_n = 0.1 + \frac{\varepsilon}{6} - \frac{\varepsilon}{6}(-5)^n.
 \]
-The solution of (II.30) is $y(t)=0.1$. For a fixed $T$ and $\Delta t=\tfrac{T}{n}$, where $n\in\N$, we have
+The solution of \eqref{II.30} is $y(t)=0.1$. For a fixed $T$ and $\Delta t=\tfrac{T}{n}$, where $n\in\N$, we have
 \[
 \limn |y(T)-y_n| = \limn |\frac{\varepsilon}{6} - \frac{\varepsilon}{6} (-5)^n| = \infty.
 \]
@@ -2497,7 +2498,7 @@ y_{i+m} = p(t_{i+m}). \labtag{II.39}
 \begin{example}[BDF(2)-method]
 For given two values $y_i,y_{i+1}$ we consider $p\in\P_2$ such that
 \[
-p(t_i) = y_i, ~ p(t_{i+1}) = y_{i+1} \und p'(t_{i+2}) = f(t_{i+2},p(t_{i+2})). \tag{\ast}
+p(t_i) = y_i, ~ p(t_{i+1}) = y_{i+1} \und p'(t_{i+2}) = f(t_{i+2},p(t_{i+2})). \tag{$\ast$}
 \]
 Using an expansion, we get the equations
 \[
@@ -2549,22 +2550,134 @@ The solution is approximated by
 \[
 u(t) \approx - 0.064 \cdot \exp(-158.74 t) + 0.114 \exp(-1.26 t). \footnote{We ignore the units.}
 \]
-Remember that we wanted $|R(\Delta t\cdot\lambda)|<1$. But since the first summand is very small, the second summand is cominant and the first summand is almos neglibible. Regarding $\lambda_2$, the stability is easy to "buy" by choosing $\Delta t = 0.5$, but for $\lambda_1$ we need a much smaller $\Delta t$, despite the fact that its influence is much smaller.
+Remember that we wanted $|R(\Delta t\cdot\lambda)|<1$. But since the first summand is very small, the second summand is dominant and the first summand is almos negligible. Regarding $\lambda_2$, the stability is easy to "buy" by choosing $\Delta t = 0.5$, but for $\lambda_1$ we need a much smaller $\Delta t$, despite the fact that its influence is much smaller.
+
+The dominance of the $\lambda_2$ in combination with the small stepsize needed for the $\lambda_1$ part is our problem. Due to stability reasons, the whole interval needs fine discretization. Hence, the eigenvalue with the largest absolute value is important for the stability.
+
+In the literature, one can find different measures for the stiffness. A popular one is
+\[
+S:=\frac{\max_j |\textrm{Re}(\lambda_j)|}{\min_j |\textrm{Re}(\lambda_j)|}.
+\]
+In our example, we have $S\approx 100$.
+
+Solving our problem in \texttt{MATLAB} needs 1957 time steps when using \texttt{ode45}\footnote{This is a lot.} and 72 time steps when using \texttt{ode23s}. The reason behind this is that \texttt{ode23s} uses a more stable method, the \emph{Rosenbrock method}.
 \end{example}
 
+\subsubsection*{Rosenbrock-Method}
+Consider
+\[
+y' = f(y), ~J:=f'(y_n), ~ y'=f(f(y_n)+J(y-y_n)) + (f(y)-f(y_n)) - J(y-y_n),
+\]
+i.e. a linearization of $f$ at $y_n$ and assume
+\[
+y' = Jy(t) + f(y(t)) - Jy(t).
+\]
+We consider the slopes $r_j$\footnote{Compare with the Runge-Kutta-scheme.}
+\[
+r_{\gr j} = J \l( y + \Delta t \sum_{\nu=1}^{\gr j}\tilde{a}_{j\nu} r_\nu \r) + \l( f\l(y+\Delta t \sum_{\nu=}^{j-1} a_{j\nu} r_\nu\r) - J \l( y+ \Delta t \sum_{\nu=1}^{j-1} a_{j\nu} r_\nu \r) \r).
+\]
+Hence, $r_{\gr j}$ appears only linear on the right hand side. Further, $r_1,\dots,r_{j-1}$ appear only in the nonlinear part of $f$. This means that we can compute $r_j$ via a linear system:
+\begin{enumerate}[(i)]
+    \item Compute $J= f(y_n)$.
+    \item Compute
+    \[
+    (I-\Delta t \tilde a_{jj} J ) r_{j} = \Delta t \sum_{\nu=1}^{j-1} \l( \tilde a_{j\nu} - a_{j\nu} \r) J \cdot r_0  ~ + ~ f \l( y_n + \Delta t \sum_{\nu=1}^{j-1} a_{j\nu} r_\nu \r).
+    \]
+    \item Compute
+    \[
+    y_{n+1} = y_n + \Delta t \sum_{ j=1}^{ s} b_j r_j.
+    \]
+\end{enumerate}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newpage
+\section{Numerics of Boundary Value Problems (BVPs)}
+In IVPs, we had initial conditions. In BVPs, there are conditions on the solution, usually on the boundary of $I=[x_0, x_{\textrm{end}}]\subseteq \R$.
 
+{\rot The missing definitions and theorems can be found on the slides of the ISIS page.}
 
+\begin{example}
+Consider the ODE $-u''(x) = u(x)$ with boundary conditions $u(0)=0, u(\pi/2)=1$. Then the unique solution is given by $u(x) = \sin(x)$. When choosing the boundary conditions $u(0) = 0, u(\pi)=0$, we get infinitely many solutions of the form $u(x)=c_1 \cdot \sin(x)$. Furthermore, choosing $u(0)=0, u(\pi)=1$ there is no solution.
+\end{example}
 
+In general, for each BVP
+\[
+y' = f(x,y), ~ R(y(a),y(b)) = 0
+\]
+we can give an IVP
+\[
+y' = f(x,y), ~ y(a) = s
+\]
+with still unknown parameter $s$. If these initial conditions give unique solutions
+\[
+w(x,s):= y(x;a,s),
+\]
+then there exists a unique function
+\[
+F(x) = R(s,w(b,s)).
+\]
+Thus, the solution is uniquely solvable if $F(s)=0$ has exactly one solution.
 
+Let $(u_i)_{i\in\N}$ be a sequence of functions such that
+\[
+\norm{u_i - y}_\infty = \delta_i, ~ \delta_i \to 0
+\]
+and instead of $y(a)=s^*$ we have $u_i(a)=s^* + \alpha_i$ with $\alpha_i \to 0$ and
+\[
+u_i(b) = w(b,s^*) + \beta_j, ~ \beta_j \to 0.
+\]
+In other words, $(u_i)_{i\in\N}$ is a sequence of functions approaching the solution. We use the expansion
+\[
+\frac{F(s^* + \alpha_i)}{\norm{\alpha_i}} = \l( F(s^*) + F_s(s^*) \alpha_i + O(\alpha_i^2)\r) \cdot \einsdurch{\norm{\alpha_i}}.
+\]
+Since $F(s^*)=0$, we only need to consider the part $F_s(s^*) \cdot \alpha_i$. In other words,
+\[
+\frac{F(s^* + \alpha_i)}{\norm{\alpha_i}}=0 \Rightarrow F_s(s^*) \alpha_i \to 0.
+\]
+If $F_s$ is continuous, then $F_s(s^*)\cdot \alpha = 0$. But since
+\[
+F(s) = R(s,w(b,s))
+\]
+it holds
+\[
+F_s(s^*) \cdot \alpha = \partiell{R(s,w(b,s))}{y(a)} \alpha + \partiell{R(s,w(b,s))}{y(b)} \cdot \partiell{w(b,s)}{s}\cdot\alpha.
+\]
+If the solution is not local unique, then $F_s$ is singular and there exists a direction $\alpha$ for varying the $s^*$ such that
+\[
+\partiell{R(s,w(b,s))}{y(a)}\cdot \alpha + \partiell{R(s,w(b,s))}{y(b)} \cdot \underbrace{\partiell{w(b,s)}{s} \cdot \alpha}_{=:\beta} = 0.
+\]
 
+\subsection{Finite Elements}
+We consider
+\[
+\begin{aligned}
+-u''(x) + b(x) u'(x) + c(x) u(x) & = f(x) \\
+0< x < 1, ~ u(0) = u(1) = 0
+\end{aligned} \labtag{II.4}
+\]
+and expect that there exists a solution
+\[
+u \in C^2(0,1) \cap C^0([0,1]).
+\]
+Such a solution is called \emph{classical solution}.
 
+We seek for a minimization problem, but it can happen that we can find a suitable minimization, but it has solution or it has only a solution by assuming that the solution is suitable smooth.
 
-
-
-
+Let
+\[
+X:= \l\{ v\in C^1(0,1) \cap C^0([0,1]) ~|~ v(0) = v(1) = 0 \r\}.
+\]
+Multiplying \eqref{III.4} by some $v\in X$ gives
+\[
+\int_0^1 \l({\gr - u''} + b \cdot u' + c \cdot u \r) \cdot {\gr v} ~ dx =  \int_{0}^{1}f\cdot v ~ dx.
+\]
+With integration by parts on $\gr -u'' \cdot v$ gives
+\[
+\int_{0}^{1}{\gr - u'' \cdot v} b\cdot u'\cdot v + c\cdot u\cdot v~ dx = -u'(x) v(x)|^1_0 + \int_{0}^{1}u'\cdot v' + b \cdot u' \cdot v + c\cdot u \cdot v~dx = \int_{0}^{1}f\cdot v~dx
+\]
+for all $v\in X$. 
 
 
 
