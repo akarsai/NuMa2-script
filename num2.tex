@@ -52,7 +52,9 @@
 \newcommand{\partiell}[2]{\frac{\partial #1}{\partial #2}}
 \newcommand{\nhn}{\newline\hfill\newline}
 \newcommand{\inv}{^{-1}}
+\newcommand{\supp}{\textrm{supp}~\!}
 \newcommand{\labtag}[1]{\label{#1}\tag{#1}}
+\newcommand{\ol}[1]{\overline{#1}}
 \renewcommand{\l}{\left}
 \renewcommand{\r}{\right}
 \renewcommand{\P}{\mathbb{P}}
@@ -2655,7 +2657,7 @@ We consider
 \begin{aligned}
 -u''(x) + b(x) u'(x) + c(x) u(x) & = f(x) \\
 0< x < 1, ~ u(0) = u(1) = 0
-\end{aligned} \labtag{II.4}
+\end{aligned} \labtag{III.4}
 \]
 and expect that there exists a solution
 \[
@@ -2671,15 +2673,200 @@ X:= \l\{ v\in C^1(0,1) \cap C^0([0,1]) ~|~ v(0) = v(1) = 0 \r\}.
 \]
 Multiplying \eqref{III.4} by some $v\in X$ gives
 \[
-\int_0^1 \l({\gr - u''} + b \cdot u' + c \cdot u \r) \cdot {\gr v} ~ dx =  \int_{0}^{1}f\cdot v ~ dx.
+\int_0^1 \l({\gr - u''} + b  u' + c  u \r)  {\gr v} ~ dx =  \int_{0}^{1}f v ~ dx.
 \]
-With integration by parts on $\gr -u'' \cdot v$ gives
+With integration by parts on $\gr -u''  v$ gives
 \[
-\int_{0}^{1}{\gr - u'' \cdot v} b\cdot u'\cdot v + c\cdot u\cdot v~ dx = -u'(x) v(x)|^1_0 + \int_{0}^{1}u'\cdot v' + b \cdot u' \cdot v + c\cdot u \cdot v~dx = \int_{0}^{1}f\cdot v~dx
+\int_{0}^{1}\underbrace{{\gr - u'' v} + b u' v + c u v}_{=:a(u,v)}~ dx = \underbrace{-u'(x) v(x)\Big|^1_0}_{=0} + \int_{0}^{1}u' v' + b  u'  v + c u  v~dx = \underbrace{\int_{0}^{1}f v~dx}_{=:f(v)=\scal{f}{v}}
 \]
-for all $v\in X$. 
+for all $v\in X$.
 
+\setcounter{theorem}{4}
+\begin{definition}
+The closure (\emph{Abschluss}) of a subset $A$ of $V$ with respect to $V$ is denoted by $\overline{A}^V$. By
+\[
+\supp v := \ol{\l\{X\in (0,1)~|~ v(x) \neq 0\r\}}^{\R}
+\]
+we define the \textbf{support}.
+\end{definition}
 
+\begin{remark}\hfill
+\begin{itemize}
+    \item For an example, let $(X,\norm{\cdot}_X)$ be some normed space and $A\subseteq X$. Then $x \in \ol{A}^{\norm{\cdot}_X}$ if there exists $\folge{x}\subseteq A$ such that
+    \[
+    \limn \norm{x_n-x}_X = 0.
+    \]
+    \item We are interested in functions with small support.
+\end{itemize}
+\end{remark}
+
+\begin{definition}
+We define
+\[
+C_0^\infty(0,1):= \l\{ v \in C^\infty ~|~ \supp v \subseteq (0,1)\r\}
+\]
+and
+\[
+L^2(0,1):= \l\{ v: [0,1] \to \R ~|~ \int_{0}^{1}v^2(x)~dx < \infty \r\}
+\]
+and equip $L^2(0,1)$ with the norm
+\[
+\norm{u}^2_{L^2(0,1)} = \int_{0}^{1}u^2(x)~dx
+\]
+and inner product (\emph{Skalarprodukt})
+\[
+\scal{u}{v}_{L^2(0,1)} = \int_{0}^{1}uv~dx
+\]
+\end{definition}
+
+\begin{remark}
+    \item The sets $L^p(\Omega)$ (equipped with the respective norm) are for $1\leq p \leq \infty$ are separable Banach spaces.
+\end{remark}
+
+\begin{definition}
+we call $w\in L^2(0,1)$ the \textbf{weak derivative} of $u \in L^2(0,1)$ if for all $v\in C^\infty_0(0,1)$ it holds
+\[
+\int_{0}^{1}w v ~ dx = - \int_{0}^{1}u v~ dx.
+\]
+In this case, we write $w=u'$.
+\end{definition}
+
+\begin{definition}
+We call the space
+\[
+H^1(0,1) := \l\{ v\in L^2(0,1) ~|~ \exists v' \in L^2(0,1) \r\}
+\]
+\textbf{sobolev space of the functions on $(0,1)$}. Further, we set
+\[
+H_0^1(0,1) = \ol{C^\infty_0(0,1)}^{H^1(0,1)}.
+\]
+\end{definition}
+
+But what does $\ol{C_0^\infty(0,1)}^{H^1(0,1)}$ mean?
+
+\begin{remark}\hfill
+\begin{enumerate}[(1)]
+    \item The set $H_0^1(0,1)$ is the closure of $C_0^\infty(0,1)$ with respect to $H^1(0,1)$.
+    \item It holds $u\in H_0^1(0,1)$ if and only if there exists a sequence of functions $\folge{u}\in C^1_0(0,1)$ such that
+    \[
+    \norm{u-u_n}_{H^1(0,1)} \overset{n\to\infty}{\longrightarrow} 0
+    \]
+\end{enumerate}
+\end{remark}
+
+\begin{definition}
+The solution of the problem
+\[
+\textrm{"Find } u \in H^1_0(0,1) \textrm{ such that } a(u,v) = f(v) \textrm{ holds for all } v\in H^1_0(0,1) \textrm{."} \labtag{III.5}
+\]
+is called \textbf{weak solution} of (III.1)
+\end{definition}
+
+\subsubsection*{Minimization Problem}
+Consider
+\[
+u''(x) = f(x) ~\forall x \in(0,1), ~ u(0)=u(1)=0.
+\]
+Analogue to \eqref{III.5}
+\[
+a(u,v) = f(v) \und a(u,v) = \int_{0}^{1}u'v'~dx.
+\]
+This gives the minimization problem
+\[
+\textrm{"Find } u \in V \textrm{ such that } (u,v) = \scal{f}{v} \textrm{ holds for all } v \in V \textrm{".}
+\]
+For this setting, we consider
+\[
+J(v) = \frac{1}{2} (u,v) - \scal{f}{v}.
+\]
+Let us assume that we have a minimizer $u$, i.e.
+\[
+J(u) = \min_{v \in V} J(v). \tag{$\ast$}
+\]
+That means
+\[
+J(u) \leq J(u+tw) ~\forall w\in V, \forall t\in [0,1].
+\]
+We have
+\begin{align*}
+J(u+tw)
+& = \einhalb \l( (u+tw,u+tw) \r) - \scal{f}{u+tw} \\
+& = \einhalb \l( (u,u) + 2 t (u,w)  + t^2 (w,w) \r) - \scal f u - t \scal f w \\
+& = J(u) + \frac{t^2}{2} \norm{w}^2 + t (u,w)  - t \scal f w.
+\end{align*}
+Thus, ($\ast$) is equivalent to the problem
+\[
+\textrm{"Find } u \in V \textrm{ such that } \frac{t}{2} \norm{w}^2 + (u,w) - \scal f w \geq 0 \textrm{ for all }  w \in V \textrm{ and } t \in [0,1] \textrm{."}
+\]
+which is equivalent to finding $u \in V$ such that
+\[
+(u,w) \geq \scal f w
+\]
+for all $w \in V$.\footnote{Since $w\in V$ implies $-w\in V$ we have an equality here.}
+
+\subsubsection*{Ritz-Galerbin Problem}
+We want to solve the problem
+\[
+\textrm{"Find } u \in V \textrm{ such that } a(u,v) = f(v) \textrm{ for all } v\in V  \textrm{."} \labtag{III.6}
+\]
+with a bilinear form $a(\cdot,\cdot): V\times V\to \R$ and a linear functional $f: V \to \R$ in some Hilbert space $V$.
+
+Choose $V_n \subseteq V$ with $\dim(V_n)=n <\infty$ and solve
+\[
+\textrm{"Find } u_n \in V_n \textrm{ such that } a(u_n,v) =f(v) \textrm{ for all } v \in V_n \textrm{."} \labtag{III.7}
+\]
+Let $\{\varphi_i\}_{i\in\N}$ be a basis of $V_n$. Then \eqref{III.7} can be rewritten as
+\[
+\textrm{"Find } u_n \in V_n \textrm{ such that } a(u_n,\varphi_i) = f(\varphi_i) \textrm{ for all } i\in \N \textrm{."}
+\]
+with
+\[
+u_n = \sum_{i=1}^{n} \ol{u_i} \varphi_i.
+\]
+We arrive at a linear system for the coefficients $\ol{u_i}$, i.e.
+\[
+a(u_n,\varphi_i) = a\l(\sum_{j=1}^{n}\ol{u_j} \varphi_j(x), \varphi_i(x) \r) = \sum_{j=1}^{n} \ol{u_j} a(\varphi_j(x),\varphi_i(x)) = f(\varphi_i)
+\]
+or
+\[
+A_n U_n = F_n,
+\]
+where
+\[
+U_n := \begin{bmatrix} \ol{u_1} & \dots & \ol{u_n} \end{bmatrix}^T,~~A_n := [a_{ij}], ~ a_{ij}:= a(\varphi_i,\varphi_j) ~ \und F_n := \begin{bmatrix} f(\varphi_1) & \dots & f(\varphi_n) \end{bmatrix}^T.
+\]
+
+The next theorem gives the answer to the question whether this linear system has always a solution.
+
+\begin{theorem}
+Let $V$ be a normed space, $V_n \subseteq V$ a subspace with $\dim V_n = n < \infty$ and $a(\cdot,\cdot): V\times V \to \R$ an $V$-elliptic (coercive) bilinear form, i.e. there exists a $\gamma>0$ such that
+\[
+a(v,v) \geq \gamma \norm{v}^2_V
+\]
+for all $v\in V$ and $f: V \to \R$ linear and continuous, i.e. there exists $k>0$ such that
+\[
+|f(v)| \leq k \norm{v}_V
+\]
+for all $v\in V$. Then,
+\begin{enumerate}[(i)]
+    \item the linear system $A_n U_n = F_n$ has a unique solution and
+    \item it holds $\norm{u_n}_V \leq \tfrac{k}{\gamma}$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+Let $W_n = \begin{bmatrix} \ol{w_1} & \dots & \ol{w_n} \end{bmatrix}^T \neq 0$ and
+\[
+w = \sum_{i=1}^{n}\ol{w_i}\varphi_i.
+\]
+Then
+\[
+A_n W_n W_n = a(w_n,w_n) \geq \gamma \norm{w}^2_V > 0,
+\]
+hence $A_n W_n \neq 0$ for all $W_n \neq 0$. With this, it holds
+\[
+\gamma \norm{u_n}^2_V \leq a(u_n,u_n) = f(u_n) \leq k \norm{u_n}_V.
+\]
+\end{proof}
 
 
 
