@@ -52,6 +52,7 @@
 \newcommand{\partiell}[2]{\frac{\partial #1}{\partial #2}}
 \newcommand{\nhn}{\newline\hfill\newline}
 \newcommand{\inv}{^{-1}}
+\newcommand{\spann}{\textrm{span}~\!}
 \newcommand{\supp}{\textrm{supp}~\!}
 \newcommand{\labtag}[1]{\label{#1}\tag{#1}}
 \newcommand{\ol}[1]{\overline{#1}}
@@ -2724,9 +2725,9 @@ and inner product (\emph{Skalarprodukt})
 \end{remark}
 
 \begin{definition}
-we call $w\in L^2(0,1)$ the \textbf{weak derivative} of $u \in L^2(0,1)$ if for all $v\in C^\infty_0(0,1)$ it holds
+We call $w\in L^2(0,1)$ the \textbf{weak derivative} of $u \in L^2(0,1)$ if for all $v\in C^\infty_0(0,1)$ it holds
 \[
-\int_{0}^{1}w v ~ dx = - \int_{0}^{1}u v~ dx.
+\int_{0}^{1}w v ~ dx = - \int_{0}^{1}u v'~ dx.
 \]
 In this case, we write $w=u'$.
 \end{definition}
@@ -2767,7 +2768,7 @@ Consider
 \[
 u''(x) = f(x) ~\forall x \in(0,1), ~ u(0)=u(1)=0.
 \]
-Analogue to \eqref{III.5}
+Analogue to \eqref{III.5} we have
 \[
 a(u,v) = f(v) \und a(u,v) = \int_{0}^{1}u'v'~dx.
 \]
@@ -2804,7 +2805,7 @@ which is equivalent to finding $u \in V$ such that
 \]
 for all $w \in V$.\footnote{Since $w\in V$ implies $-w\in V$ we have an equality here.}
 
-\subsubsection*{Ritz-Galerbin Problem}
+\subsubsection*{Ritz-Galerkin Problem}
 We want to solve the problem
 \[
 \textrm{"Find } u \in V \textrm{ such that } a(u,v) = f(v) \textrm{ for all } v\in V  \textrm{."} \labtag{III.6}
@@ -2868,15 +2869,130 @@ hence $A_n W_n \neq 0$ for all $W_n \neq 0$. With this, it holds
 \]
 \end{proof}
 
+Now, we are concerned with the relation between the finite dimensional and the variational problem and how it is possible to construct our scheme such that $A_n U_n = F_n$ is numerically "easy" to solve.
 
+\begin{theorem}(Lemma of Cea)
+Let $V$ be a Hilbert space, $V_n\subseteq V$ be a subspace with $\dim V_n = n < \infty$ and
+\[
+a(\cdot,\cdot): V\times V \to \R
+\]
+be a $V$-elliptic and continuous bilinear form, where continuity means
+\[
+\exists \Gamma > 0: ~ a(u,v) \leq \Gamma \norm{u}_V \norm{v}_V ~ \forall u,v \in V.
+\]
+Then, it holds
+\[
+\norm{u-u_n}_V \leq \frac{\Gamma}{\gamma} \inf_{u_n\in V_n}\norm{u_n-u}_V.
+\]
+\end{theorem}
+\begin{proof}
+Since $V_n \subseteq V$, we have
+\[
+u \in V: ~ a(u,v_n) = f(v_n) ~ \forall v_n \in V_n
+\]
+and
+\[
+u_n \in V_n: ~ A(u_n,v_n) = f(v_n) ~ \forall v_n \in V_n.
+\]
+Substracting the second equation from the first, we get
+\[
+a(u-u_n, v_n) =0 ~ \forall v_n \in V_n.
+\]
+This is called Galerkin-orthogonality. For all $u_n\in V_n$, we have
+\begin{align*}
+\gamma \norm{u-u_n}_V^2
+& \leq a(u-u_n,u-u_n) \\
+& = a(u-u_n,u-v+v-u_n) \\
+& = a(u-u_n,u-v) + \underbrace{a(u-u_n,v-u_n)}_{=0} \\
+& \leq \Gamma \norm{u-u_n}_V \norm{u-v}_V.
+\end{align*}
+This completes the proof.
+\end{proof}
 
+\begin{remark}
+If $V_n$ has polynomials of degree $k$, then the approximation quality of the interpolation of $u$ in $\P_k$ can be transferred tothe approximation quality of $u-u_n$ in $V_n$.
+\end{remark}
 
+\subsubsection*{Choice of basis functions}
+Consider
+\[
+-u'' = f ~ \textrm{in}~ (0,1), ~ u(0)=u(1)=0
+\]
+with
+\[
+a(u,v)=\int_{0}^{1}u'v'~dx
+\]
+and
+\[
+a_{ij} = a(\varphi_i,\varphi_j) = \int_{0}^{1}\varphi_i'\varphi_j'~dx.
+\]
+For instance, choose basis functions
+\[
+\varphi_j(x) = \sin(j\pi x), ~ j=1,\dots,n \footnote{One can show that this is a basis.}
+\]
+and set the meshsize $h=\tfrac{1}{n}$ and
+\[
+V_n = \spann \{\varphi_i\}_{i=1}^n = \l\{ v ~|~ v(x) = \sum_{j=1}^{n}c_j \varphi_j(x) \r\} \subseteq V
+\]
+It can then be shown, that
+\[
+\lim_{h\to 0} \l( \inf_{v\in V_n} \norm{u-v} \r) = 0
+\]
+for any given $u\in V$. We then have
+\[
+a(\varphi_i,\varphi_j) = \begin{cases} \pi^2 \cdot \frac{j^2}{2} & \textrm{ if } i=j \\ 0 & \textrm{ if } i\neq j \end{cases}.
+\]
+For the right hand side, we obtain
+\[
+F_i = \int_{0}^{1} f(x) \varphi_i(x)~ dx
+\]
+and it can then be shown, that the solution
+\[
+\sum_{j=1}^n a(\varphi_i,\varphi_j) \cdot \ol{u_j} = f(\varphi_j) ~ \forall i=1,\dots,n
+\]
+is
+\[
+\ol{u_j} = \frac{2 F_i}{\pi^2 j^2}.
+\]
+The Galerkin approximation is then
+\[
+u_n(x) = \sum_{j=1}^{n} \ol{u_j} \sin(j\pi x).
+\]
 
+But having an explicit solution is not given in general. This case is exceptional, since the basis functions $u_j$ are the eigenfunctions of the differential operator.
 
+Consider the same problem as before, but now choose
+\[
+V_n := \spann \l\{ \einsdurch{i} x^i \r\}_{i=1}^n.
+\]
+The Galerkin approximation is then
+\[
+u_n(x) = \sum_{i=1 }^{n}\frac{\ol{u_i}}{i} x^i.
+\]
+The entries of $A_n$ in $A_n U_n = F_n$ are then
+\[
+a_{ij} = a(\varphi_i,\varphi_j) = \frac{1}{i+j-1}.
+\]
+The matrix $A_n$ is called a Hilbert matrix, and has extremely bad condition. For example, for $n=10$, we have $\textrm{cond}(A)=10^{13}$.
 
+Our demands on the choice of the basis functions are \newline
+\begin{itemize}
+    \item The computation of the matrix elements $a_{ij}=a(\varphi_i,\varphi_j)$ and the right hand side $f(\varphi_j)$ should be "cheap".
+    \item In general, we will have $n \gg 100$ and hence $A$ should be sparse.
+    \item The matrix $A$ should not be bad conditioned, i.e. $\textrm{cond}(A)\approx O(n)$ or $O(n^2)$ would be okay, but $\textrm{cond}(A)\approx O(n^4)$ or $O(e^n)$ would not be okay.
+\end{itemize}
 
+We take $V_n = \spann \l\{ \varphi_i \r\}_{i=1}^n $ as the space of the linear functions
+\[
+\varphi_j(x) = \begin{cases} \frac{x-x_{j-1}}{h} & \textrm{ if } x\in (x_{j-1},x_j]  \\ \frac{x_{j+1}-x}{h} & \textrm{ if } x \in (x_j,x_{j+1}) \\ 0 & \textrm{ otherwise }\end{cases}.
+\]
+Here $\l\{ x_j \r\}_{j=0}^n$ is an equidistant mesh of $(0,1)$ with meshsize $h$, i.e. $x_j = j \cdot h$ for $j=0,\dots, N$ with $h=\tfrac{1} N$.\footnote{Notice, that we have $\varphi_i(x_j) = \delta_{ij}$. This property usually is called the \emph{Kronecker-$\delta$-property}.} It then follows, that
+\[
+a(\varphi_i,\varphi_j) = \begin{cases} \frac{2}{h} & \textrm{ if } i=j \\ -\frac{1}{h} & \textrm{ if } |i-j| = 1 \\ 0 & \textrm{ otherwise } \end{cases},
+\]
+so $A_n$ is a tridiagonal matrix.
 
-
+The basis functions hence should have a small support, since this has an impact on the bandwidth of the matrix $A_n$.
 
 
 
