@@ -160,11 +160,25 @@ The system is called homogeneous if $f=0$ and inhomogeneous otherwise.
 \end{definition}
 
 \begin{theorem}
-	Let $y_1,y_n$ be two solutions of the homogeneous system
+	Let $y_1,y_n$ be two solutions of the homogeneous ODE \[
+	y'(t)=A(t)y(t),~t\in I\subset\R.\] Then each linear combination \[
+	\alpha y_1 + \beta y_2,~\alpha,\beta\in\C\] of $y_1$ and $y_2$ is also a solution
 \end{theorem}
 \begin{proof}
-Incomplete.
+\[
+(\alpha y_1(t)+\beta y_2(t))'=\alpha y_1'(t)+\beta y_2'(t)=\alpha A(t)y_1(t)+\beta A(t)y_2(t)=A(t)(\alpha y_1(t)+\beta y_2(t))\]
 \end{proof}
+
+\begin{remark}
+The set of all solutions of homogeneous linear ODEs $y'(t)=A(t)y(t)$ form an $n$-dimensional subspace of the vector space $C^1(I,\C^n)$.
+
+Terms of linear dependence / independence in the context of vector valued functions.
+\end{remark}
+
+\begin{definition}
+Let $y_1,\dots,y_n$ be $\C^n$ valued functions. We call these functions linear independent on $I\subset\R$ if \[
+c_1 y_1(t)+\dots+c_n y_n(t)=0 \forall t\in I\] has the only solution $c_1=\dots=c_n=0$. Otherwise we call them linear independet.
+\end{definition}
 
 \setcounter{subsection}{2}
 \subsection{Qualitative Behaviour of ODEs}
