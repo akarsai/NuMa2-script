@@ -2994,12 +2994,134 @@ so $A_n$ is a tridiagonal matrix.
 
 The basis functions hence should have a small support, since this has an impact on the bandwidth of the matrix $A_n$.
 
+\subsubsection*{Design of Finite Element spaces}
+
+\begin{definition}
+Let $\Omega \subseteq \R^2$ have a polygonal boundary. A set $\mathcal{T}$ of triangles is called a \textbf{triangulation of $\Omega$} if it holds
+\begin{enumerate}[(i)]
+    \item
+    \[
+    \bigcup_{t \in \mathcal{T}} = \ol{\Omega}
+    \]
+    and
+    \item the intersection of two triangles is either a common edge, a point, or empty.
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+{\rot \texttt{The drawings are missing.}}
+\end{example}
+
+\begin{definition}
+We define
+\[
+S^{(m)}:= \l\{ v\in C(\ol\Omega) ~|~ v|_t \in \P_m  ~ \forall t \in \mathcal{T} \r\}
+\]
+as the \textbf{space of the (polynomial) finite elements of order $m$}.
+\end{definition}
+
+\begin{remark}\hfill
+\begin{itemize}
+    \item In general, we have $S^{(m)}\not\subseteq C^1(\Omega)$.
+    \item In the case of $m=1,2,3$ we call the finite elements \emph{linear},\emph{quadratic} or \emph{cubic} finite elements.
+\end{itemize}
+\end{remark}
+
+It is unclear how to construct a basis for $S^{(m)}$. {\rot \texttt{The drawings for $m=1,2,3$ are missing.}} The following lemma tells us how to define basis functions.
+
+\begin{lemma}
+Let $m\geq 0$. In a triangle $t$ we have on $m+1$ parallel lines
+\[
+s= 1+2+\dots+(m+1) = \frac{(m+1)(m+2)}{2}
+\]
+nodes $\mathcal{N}^{(m)}(t) = \l\{ z_1,\dots,z_s \r\}$. Then, the interpolation problem
+\[
+\textrm{"Find } p \in \P_m \textrm{ such that } p(z_i)=p_i \textrm{ holds for all }i=1,\dots,s \textrm{."}
+\]
+has a unique solution for all node values $p_i$.
+\end{lemma}
+\begin{proof}
+The proof will be given later in the lecture.
+\end{proof}
 
 
 
+Putting the nodes of all triangles together gives us the following corollary.
+\begin{corollary}
+Let
+\[
+\mathcal{N}^{(m)} := \bigcup_{t\in \mathcal{T}} \mathcal{N}^{(m)}(t)
+\]
+be  the collection of all nodes. Then, the interpolation problem
+\[
+\textrm{"Find } v \in S^{(m)} \textrm{ such that } v(p) = v_p \textrm{ holds for all } p \in \mathcal{N}^{(m)} \textrm{."}
+\]
+has a unique solution for all node values $v_p$.
+\end{corollary}
 
+\begin{definition}
+Solving
+\[
+\textrm{"Find }\varphi_p \in S^{(m)} \textrm{ such that } \varphi_p(q) = \delta_{pq} \textrm{ holds for all } q \in \mathcal{N}^{(m)} \textrm{."}
+\]
+for each $p\in \mathcal{N}^{(m)}$ gives us the \textbf{nodal basis}
+\[
+\Lambda^{(m)} := \l\{ \varphi_p ~|~ p \in \mathcal{N}^{(m)} \r\}
+\]
+of $S^{(m)}$. If $p$ is a vertex of $t$, then $\varphi_p|_t \in \P_m$ is called a \textbf{form function}. We also define
+\[
+S_h:= \l\{ v \in S^{(m)}~|~ v|_{\partial \Omega} = 0 \r\},
+\]
+where
+\[
+h:= \max_{t \in \mathcal{T}} \textrm{diam}(t).
+\]
+\end{definition}
 
+The next theorem gives a characterization of the space $S_h$.
+\begin{theorem}
+The space $S_h$ is a closed subspace of $H_0^1(\Omega)$.
+\end{theorem}
+\begin{proof}
+No proof.
+\end{proof}
 
+This theorem is good news, since it tells us that $S_h$ is the finite dimensional subspace we were looking for earlier, i.e. we can choose $V_n:= S_h$.
+
+{\rot \texttt{Slides are missing.}}
+
+Notice, that $h$ refers to the size of the triangles, the number of basis functions and maybe also the approximation quality. To precisely measure the approximation quality, we need error estimates. \hfill
+\begin{itemize}
+    \item Discretization error: $\norm{u-u_h}_{H^1(\Omega)}$, where $u$ is the true solution.
+\end{itemize}
+If $H_0^1(\Omega)$ is replaced by $S_h$, then we know by Cea's lemma that we only have to consider the \emph{approximation error}:
+\begin{itemize}
+    \item Approximation Error: $\inf_{v\in S_h} \norm{u-v}_{H^1(\Omega)}$.
+\end{itemize}
+
+We now consider the easiest case, i.e. $m=1$ (linear polynomials), $\Omega=(a,b)\subseteq \R$ and
+\[
+\mathcal{T}: ~ a=x_0 < x_1 < \dots < x_N = b, ~ t_i:= [x_{i-1},x_i], ~ h_i:= x_i - x_{i-1}, ~ h:= \max_{1\leq i \leq N} h_i
+\]
+where $S_h$ is the space of the continuous and piecewise linear functions with zero bounding conditions.
+
+\begin{theorem}
+For each $u\in H_0^1(\Omega)$ it holds
+\[
+\inf_{v\in S_h} \norm{u-v}_{H^1(\Omega)} \overset{h \to 0}{\longrightarrow} 0
+\]
+\end{theorem}
+\begin{proof}
+No proof.
+\end{proof}
+
+But now, we are interested in how fast the approximations approach $u$.
+
+We now assume $u\in H^2(a,b)$. By Sobolev's Embedding theory it holds
+\[
+H^2(a,b) \subseteq C[a,b].
+\]
+This also holds if $\Omega\subseteq \R^2$ or $\Omega \subseteq \R^3$, but not for $\Omega \in \R^d$ for $d\geq 4$. 
 
 
 
