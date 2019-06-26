@@ -711,12 +711,12 @@ z_\ipo\leq (1+\varrho_i)z_i + \eta_i
 \]
 for $i=0,\dots,m-1$. Then it holds
 \[
-z_{i+1} \leq \l(z_0 + \sum_{k=0}^{i-1}\eta_k\r) e^{\sum_{k=0}^{i-1}\varrho_k}
+z_{i+1} \leq \l(z_0 + \sum_{k=0}^i\eta_k\r) e^{\sum_{k=0}^i\varrho_k}
 \]
 for $i=0,\dots,m-1$.
 \end{lemma}
 \begin{proof}
-We prove the statement by induction on $i$. For $z_0$ the claim is true. Hence let the statement be valid for a $i-1$. Then we have
+We prove the statement by induction on $i$. For $i=0$ the claim is true. Hence let the statement be valid for a $i-1$. Then we have
 \begin{align*}
 z_\ipo
 & \leq (1+\varrho_i) z_i + \eta_i \\
@@ -735,7 +735,7 @@ Let $\Phi$ be an incremental function of a one-step method for the IVP \eqref{II
 \end{align*}
 with $L\in \R$. Then it holds for $\Delta t < \tfrac{1}{L}$ that
 \[
-\l| e(t_{i+1},\Delta t)\r| \leq \l( |e(t_0,\Delta t)| + \frac{(t_i+1-t_0)}{1-\Delta t\cdot L}\cdot \frac{\eta(\Delta t)}{\Delta t}\r) e^{2 \cdot \frac{t_{i+1}-t_0}{1-\Delta t}\cdot L}\labtag{II.5}
+\l| e(t_{i+1},\Delta t)\r| \leq \l( |e(t_0,\Delta t)| + \frac{(t_{i+1}-t_0)}{1-\Delta t\cdot L}\cdot \frac{\eta(\Delta t)}{\Delta t}\r) e^{2 \cdot \frac{t_{i+1}-t_0}{1-\Delta t}\cdot L}\labtag{II.5}
 \]
 for $i=0,\dots,n-1$, where
 \[
@@ -762,7 +762,7 @@ Using \eqref{II.3} and \eqref{II.4} we obtain
 \begin{align*}
 |e(t_\ipo,\Delta t)|
 & \leq |e(t_i,\Delta t)| + \Delta t L|y(t_\ipo)-y_\ipo| + \Delta t L|y(t_i)-y_i| - \eta(t_i,\Delta t) \\
-& = |e(t_i,\Delta t)| + \Delta t L|e(t_{i+1},\Delta t)| + \Delta t L| e(t_i,\Delta t) | - \eta(t_i,\Delta t).
+& = |e(t_i,\Delta t)| + \Delta t L|e(t_{i+1},\Delta t)| + \Delta t L| e(t_i,\Delta t) | + |\eta(t_i,\Delta t)|.
 \end{align*}
 This gives
 \begin{align*}
@@ -770,7 +770,8 @@ This gives
 \end{align*}
 so
 \[
-|e(t_\ipo,\Delta t)| \leq \frac{(1+\Delta t L)}{(1-\Delta t L)} |e(t_i,\Delta t)| + \einsdurch{(1-\Delta t L)}|\eta(t_i,\Delta t)|.
+|e(t_\ipo,\Delta t)| \leq \frac{(1+\Delta t L)}{(1-\Delta t L)} |e(t_i,\Delta t)| + \einsdurch{(1-\Delta t L)}|\eta(t_i,\Delta t)|
+& \leq \frac{(1+\Delta t L)}{(1-\Delta t L)} |e(t_i,\Delta t)| + \einsdurch{(1-\Delta t L)}\eta(\Delta t).
 \]
 By setting
 \begin{align*}
@@ -791,7 +792,7 @@ Observe that the two sums can be rewritten as
 \end{align*}
 and
 \begin{align*}
-\sum_{k=0}^{i }\frac{2\Delta t L}{1-\Delta t L } = (t_\ipo - t_0) \frac{2t}{1-\Delta t L}.
+\sum_{k=0}^{i }\frac{2\Delta t L}{1-\Delta t L } = (t_\ipo - t_0) \frac{2L}{1-\Delta t L}.
 \end{align*}
 Inserting this into ($\ast$) gives the result.
 \end{proof}
