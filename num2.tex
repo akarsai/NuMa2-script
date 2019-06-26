@@ -11,6 +11,7 @@
 \usepackage{hyperref} %klickbares Inhaltsverzeichnis
 \usepackage[rgb]{xcolor}
 \usepackage{shadethm}
+\usepackage{pdfpages}
 
 \mathchardef\ordinarycolon\mathcode`\:
 \mathcode`\:=\string"8000
@@ -771,7 +772,7 @@ This gives
 so
 \[
 |e(t_\ipo,\Delta t)| \leq \frac{(1+\Delta t L)}{(1-\Delta t L)} |e(t_i,\Delta t)| + \einsdurch{(1-\Delta t L)}|\eta(t_i,\Delta t)|
-& \leq \frac{(1+\Delta t L)}{(1-\Delta t L)} |e(t_i,\Delta t)| + \einsdurch{(1-\Delta t L)}\eta(\Delta t).
+\leq \frac{(1+\Delta t L)}{(1-\Delta t L)} |e(t_i,\Delta t)| + \einsdurch{(1-\Delta t L)}\eta(\Delta t).
 \]
 By setting
 \begin{align*}
@@ -2614,7 +2615,7 @@ Hence, $r_{\gr j}$ appears only linear on the right hand side. Further, $r_1,\do
 \section{Numerics of Boundary Value Problems (BVPs)}
 In IVPs, we had initial conditions. In BVPs, there are conditions on the solution, usually on the boundary of $I=[x_0, x_{\textrm{end}}]\subseteq \R$.
 
-{\rot The missing definitions and theorems can be found on the slides of the ISIS page.}
+\includepdf[pages={1-9},nup=2x3]{BVP_slides.pdf}
 
 \begin{example}
 Consider the ODE $-u''(x) = u(x)$ with boundary conditions $u(0)=0, u(\pi/2)=1$. Then the unique solution is given by $u(x) = \sin(x)$. When choosing the boundary conditions $u(0) = 0, u(\pi)=0$, we get infinitely many solutions of the form $u(x)=c_1 \cdot \sin(x)$. Furthermore, choosing $u(0)=0, u(\pi)=1$ there is no solution.
@@ -3136,7 +3137,7 @@ We now assume $u\in H^2(a,b)$. By Sobolev's Embedding theory it holds
 \[
 H^2(a,b) \subseteq C[a,b].
 \]
-This also holds if $\Omega\subseteq \R^2$ or $\Omega \subseteq \R^3$, but not for $\Omega \in \R^d$ for $d\geq 4$. 
+This also holds if $\Omega\subseteq \R^2$ or $\Omega \subseteq \R^3$, but not for $\Omega \in \R^d$ for $d\geq 4$.
 
 
 
