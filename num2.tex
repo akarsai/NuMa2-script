@@ -926,7 +926,7 @@ with $\xi_j=t_i+c_j\Delta t$ as an \textbf{$s$-step Runge-Kutta method}. We call
 \begin{example}\hfill
 \begin{enumerate}[(1)]
 \item For the explicit Euler method, the Butcher table is given by $~\begin{matrix}[c|c]0&0\\ \hline &1\end{matrix}~$, which is equivalent to $k_1=y_i$ and $y_{i+1}=y_i+\Delta t f(t_i,k_1)$.
-\item For the implicit Euler method, the Butcher table is given by $~\begin{matrix}[c|c]1&1\\ \hline &1\end{matrix}~$, which is equivalent to $y_{i+1}=k_1=y_i+\Delta t f(t_i,k_1)$.
+\item For the implicit Euler method, the Butcher table is given by $~\begin{matrix}[c|c]1&1\\ \hline &1\end{matrix}~$, which is equivalent to $y_{i+1}=k_1=y_i+\Delta t f(t_i+\Delta t,k_1)$.
 \item For the explicit midpoint rule, the Butcher tabel is given by
 \[
 \begin{matrix}[c|cc]
