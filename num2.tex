@@ -3139,6 +3139,143 @@ H^2(a,b) \subseteq C[a,b].
 \]
 This also holds if $\Omega\subseteq \R^2$ or $\Omega \subseteq \R^3$, but not for $\Omega \in \R^d$ for $d\geq 4$.
 
+Now denote $\norm{\cdot}_{1,\Omega}:=\norm{\cdot}_{H^1(\Omega)}$ and consider
+\[
+u''(x) = f(x),~ x \in (a,b)=:\Omega, ~ u(a)=u(b)=0.
+\]
+We now want to compute the discretization error, which we reduce to the estimatia of the interpolation error.
+\begin{enumerate}[\textrm{Step }1.]
+    \item It holds
+    \[
+    \norm{u-I_h u}_{1,\Omega}^2 = \sum_{i=1}^{N} \norm{u-I_h u}_{1,t_i}^2.
+    \]
+    \item We transform onto the unit interval. For each fixed $i$ we transform the unit interval $T=[0,1]$ affine onto $t_i$, i.e.
+    \begin{align*}
+    t_i & = F_i(T), \\
+    x & = F_i(\xi) = x_{i-1} + h_i \xi \\
+    \xi_i & := F^{-1}(x) = h^{-1}(x-x_i)
+    \end{align*}
+    and we set
+    \[
+    \hat v(\xi) := v(F_i(\xi)) = v(x)
+    \]
+    for all $v\in H^2(t_i)$.
+    {\rot \ttfamily The drawing illustrating the transformation is missing.} By the transformation rule for integrals, it holds\footnote{In the literature, it is common to denote \[\norm{\cdot}_{L^2} = \norm{\cdot}_{H^0} = \norm{\cdot}_{0}.\]}
+    \[
+    \norm{v}_{0,t_i}^2 = \int_{x_{i-1}}^{x_i}v(x)^2 ~ dx = h_i \cdot \int_{0}^{1}\hat v (\xi)^2 ~ d\xi = h_i \norm{\hat v}_{0,T}^2.
+    \]
+    The chain rule gives\footnote{Note that we use the chain rule for the strong derivative and transfer it back to the weak derivative by a density argument.}
+    \[
+    \hat{v}'(\xi) = \frac{d \hat v}{d\xi} (\xi) = \frac{dv}{dx}(x) \cdot \frac{dx}{d\xi} = h_i v'(x)
+    \]
+    and thus
+    \[
+    \norm{v'}_{0,t_i}^2 = h_i^{-1}\norm{\hat v'}^2_{0,T}.
+    \]
+    For $h_1\leq 1$ it holds
+    \[
+    \norm{v}^2_{1,t_i} \leq h_i^{-1} \norm{\hat v}^2_{1,T} \labtag{III.8}
+    \]
+    for all $v\in H^2(t_i)$.
+    \item We compute the local interpolation error. Applying \eqref{III.8} onto $u- J_h u$ gives
+    \begin{align*}
+    \norm{u-I_h}^2_{1,t_i} \leq h^{-1}\norm{\hat u - I_h \hat u_i}^2_{1,T},
+    \end{align*}
+    where
+    \[
+    \hat I v(x) = v(0) + (v(1)-v(0))\cdot x
+    \]
+    is the interpolation operator on $T$. It can then be shown, that
+    \[
+    \norm{v-\hat I v}^2_{1,T} \leq c \norm{v''}^2_{0,T} \labtag{III.9}
+    \]
+    with $c= \tfrac 1 3 (8+2 \sqrt{3})$ holds for all $v\in H^2(T)$.
+    \item We do the backtransformation. Analogue to step 2, it can be shown by the chain rule, that
+    \[
+    \norm{\hat u_i''}_{0,T}^2 = h_i^3 \norm{u''}_{0,t_i}^2.
+    \]
+    Summing up, we have
+    \begin{align*}
+    \norm{u - I_h u}^2_{1,\Omega}
+    & = \sum_{i=1}^{N}\norm{u- I_h u}^2_{1,t_i} \\
+    & \leq \sum_{i=1}^{N}h_i^{-1}\norm{\hat u_i - \hat I \hat u_i}^2_{1,t_i} \\
+    & \leq c \cdot \sum_{i=1}^{N} h_i^{-1}\norm{u_i''}^2_{1,T} \\
+    & = c \cdot \sum_{i=1}^{N} h_i^{-1} h_i^3 \norm{u''}_{1,t_i}^2 \\
+    & \leq c h^2 \norm{u''}_{0,\Omega}^2.
+    \end{align*}
+    We have thus shown, that for $u\in H^2(a,b)$ the a priori error estimate is given by
+    \[
+    \norm{u- u_h}_1 \leq \tilde c h \norm{u''}_0 \leq \tilde c h \norm{u}_2
+    \]
+    with $\tilde c = \sqrt{c} \cdot \tfrac{\Gamma}{\gamma}$.
+\end{enumerate}
+
+\begin{remark}[FE in higher dimensions, i.e. $d=2,3$]
+{\rot This remark is missing, since it heavily relies on illustrations. Just note, that it can happen that we choose bad triangles (the angles are important, "angle condition") for which the transformation gets bad. The importance of the angles marks a meeting point between geometry and numerical analysis.}
+Summing up, the quality of the grid influences the approximation quality.
+\end{remark}
+
+\begin{remark}
+We are using triangles, since the transformation $F$ gets harder when using different shapes (e.g. squares) since one has to be careful not to flip points.
+\end{remark}
+
+\setcounter{subsection}{2}
+\subsection{Finite Differences}
+Our idea is to replace the derivative of the differential equation by suitable differences.
+
+Consider the interval $[0,1]$ and $x_i=i\cdot h,~ h:= \tfrac 1 N,~ i=0,\dots, N$ and the grid $w_h:= \l\{ x_i ~|~ i=0,\dots, N \r\}$.
+
+\begin{definition}[Gridfunction]
+A vector $u_h = \begin{bmatrix} u_0 & \dots & u_N \end{bmatrix}^T \in \R^{N+1}$ assigning each grid point a function value is called \textbf{grid function}.
+
+The restriction $R_h u$ of a function $u\in C^1[0,1]$ onto a grid function is given as
+\[
+R_h u = \begin{bmatrix} u(x_0) & \dots & u(x_N) \end{bmatrix}^T.
+\]
+\end{definition}
+
+\begin{example}
+Consider the grid $\l\{0.00, 0.25, 0.50, 0.75, 1.00 \r\}$, $u(x) = x^2$ and $R_h u = \begin{bmatrix} 0 & \tfrac 1 {16} & \tfrac 1 4 & \tfrac 9 {16} & 1 \end{bmatrix}^T$.
+
+Caution: Consider $u(x) = \sin(4\pi x)$ and $v(x) = 0$. Then
+\[
+R_h u = R_h v = \begin{bmatrix} 0 & 0 & 0 & 0 & 0 \end{bmatrix}^T.
+\]
+This means that different functions can have the same grid function.  In this example, we would need a finer mesh for $u$.
+\end{example}
+
+\begin{definition}
+Let $v(x)$ be a sufficiently smooth function. Denote $v_i := v(x_i)$, where $x_i$ is a node of the grid. Then, we call
+\begin{enumerate}[(i)]
+    \item
+    \[
+    D^+ v(x_i) = \frac{v_{i+1}-v_i}{h}
+    \]
+    the \textbf{forward difference},
+    \item
+    \[
+    D^- v(x_i) = \frac{v_i - v_{i-1}}{h}
+    \]
+    the \textbf{backwards difference},
+    \item
+    \[
+    D^0 v(x_i) = \frac{v_{i+1}-v_{i-1}}{2h}
+    \]
+    the \textbf{central difference} and
+    \item
+    \[
+    D^+ D^- v(x_i) = \frac{v_{i+1}-2v_i + v_{i-1}}{h^2}
+    \]
+    the \textbf{second difference}.
+\end{enumerate}
+\end{definition}
+
+
+
+
+
+
+
 
 
 

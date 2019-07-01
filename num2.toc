@@ -8,3 +8,4 @@
 \contentsline {subsection}{\numberline {II.3}Multistep Methods}{35}{subsection.2.3}
 \contentsline {section}{\numberline {III}Numerics of Boundary Value Problems (BVPs)}{47}{section.3}
 \contentsline {subsection}{\numberline {III.1}Finite Elements}{50}{subsection.3.1}
+\contentsline {subsection}{\numberline {III.3}Finite Differences}{59}{subsection.3.3}
