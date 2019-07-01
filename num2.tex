@@ -1056,7 +1056,7 @@ r_j= f\l(t_i+c_j\Delta t,~y_i+\Delta t \sum_{\nu=1 }^{s }a_{j\nu} r_\nu\r).
 \begin{proof}
 We set
 \[
-R:=\begin{bmatrix} r_1 \\ \vdots \\ r_s \end{bmatrix} \und F:= \begin{bmatrix} F_1 \\ \vdots \\ F_2 \end{bmatrix} : \R^{s\cdot m} \to \R^{s\cdot m}
+R:=\begin{bmatrix} r_1 \\ \vdots \\ r_s \end{bmatrix} \und F:= \begin{bmatrix} F_1 \\ \vdots \\ F_2 \end{bmatrix} : \R^s \to \R^s
 \]
 with
 \[
@@ -1087,8 +1087,8 @@ we obtain
 \[
 \norm{F(R)-F(\tilde R)} \leq L \cdot \Delta t \cdot \underbrace{\l(\max_{i=1,\dots,s} \sum_{\nu=1}^{s}|a_{i\nu} \norm{R-\tilde R}_\infty \r)}_{= \norm{A}_\infty}
 \]
-which is a contraction in the Banachspace $(\R^{s\cdot m}, \norm{\cdot}_\infty)$ if $L\cdot \Delta t \norm{A}_\infty
- < 1$. The Banach-fixpoint theorem then implies that there exists an $R\in\R^{s\cdot m}$ as the fixed point of this iteration. Furthermore, $(R^{(\ell)})_\ell$ with $R^{(\ell+1)} = F(R^{(\ell)})$ converges towards R.
+which is a contraction in the Banachspace $(\R^s}, \norm{\cdot}_\infty)$ if $L\cdot \Delta t \norm{A}_\infty
+ < 1$. The Banach-fixpoint theorem then implies that there exists an $R\in\R^s$ as the fixed point of this iteration. Furthermore, $(R^{(\ell)})_\ell$ with $R^{(\ell+1)} = F(R^{(\ell)})$ converges towards R.
 \end{proof}
 
 \begin{remark}
