@@ -178,7 +178,7 @@ Terms of linear dependence / independence in the context of vector valued functi
 
 \begin{definition}
 Let $y_1,\dots,y_n$ be $\C^n$ valued functions. We call these functions linear independent on $I\subset\R$ if \[
-c_1 y_1(t)+\dots+c_n y_n(t)=0 \forall t\in I\] has the only solution $c_1=\dots=c_n=0$. Otherwise we call them linear independet.
+c_1 y_1(t)+\dots+c_n y_n(t)=0 \forall t\in I\] has the only solution $c_1=\dots=c_n=0$. Otherwise we call them linear independent.
 \end{definition}
 
 \setcounter{subsection}{2}
@@ -3256,7 +3256,7 @@ Let $v(x)$ be a sufficiently smooth function. Denote $v_i := v(x_i)$, where $x_i
     \[
     D^- v(x_i) = \frac{v_i - v_{i-1}}{h}
     \]
-    the \textbf{backwards difference},
+    the \textbf{backward difference},
     \item
     \[
     D^0 v(x_i) = \frac{v_{i+1}-v_{i-1}}{2h}
@@ -3270,9 +3270,151 @@ Let $v(x)$ be a sufficiently smooth function. Denote $v_i := v(x_i)$, where $x_i
 \end{enumerate}
 \end{definition}
 
+\begin{definition}
+Let $L$ be a differntial operator. Then the difference operator $L_h:\R^{N+1}\to \R^N$ is \textbf{consistent with $L$ of order $k$} if
+\[
+\max_{0\leq i \leq N} \norm{(Lu)(x_i) - (L_h u_h)_i} =: \norm{(Lu)(x_i) - (L_h u_h)_i}_{\infty,d} = O(h^k)
+\]
+holds.
+We call $\norm{\cdot}_{\infty,d}$ the \textbf{discrete maximum norm in the space of the grid functions}.
+\end{definition}
 
+\begin{remark}
+Consistency is a measure for the approximation quality.
+\end{remark}
 
+\begin{example}
+The operators $D^+, D^-,D^0$ are consistent of order $1$ to $L=\tfrac{d}{dx}$ and $D^+D^-$ is consistent of order $2$ to $L=\tfrac{d^2}{dx^2}$.
+\end{example}
 
+\begin{example}
+Consider
+\[
+Lu = \frac{d}{dx} \l( k(x)\cdot \frac{du}{dx} \r),
+\]
+where $k(x)$ is continuously differentiable. We define $L_h$ by
+\begin{align*}
+    (L_h u_h)_i
+    & = D^+ (a D^- u(x_i)) \\
+    & = \frac{1}{h}\l( a_{i+1} D^- u (x_{i+1}) - a_i D^- u(x_i)\r) \\
+    & = \frac{1}{h} \l( a_{i+1} \frac{u_{i+1}-u_i}{h}- a_i \frac{u_i - u_{i-1}}{h}\r),
+\end{align*}
+where $a$ is a grid function, that has to be chosen suitable (cp $k(x)$). Using the chain rule, we obtain
+\[
+(Lu)_i = k'(x_i) (u')_i + k(x_i) + (u'')_i.
+\]
+A Taylor expansion gives
+\[
+(L_h u_h)_i = \frac{a_{i+1}-a_i }{h}(u')_i + \frac{a_{i+1} - a_i}{2}(u'')_i + \frac{h (a_{i+1} - a_i)}{6} (u''')_i + O(h^2).
+\]
+For the difference we obtain
+\begin{align*}
+&(Lu)_i - (L_h u_h)_i \\ = &\l(k(x_i) - \frac{a_{i+1}-a_i }{h}\r) (u')_i + \l( k(x_i) - \frac{a_{i+1} - a_i}{2} \r) (u'')_i  \\  & - \frac{h (a_{i+1}-a_i)}{6} (u''')_i + O(h^2).
+\end{align*}
+$L_h$ is consistent with $L$ of order $2$, if
+\[
+\frac{a_{i+1}-a_i}{h} = k'(x_i) + O(h^2) ~\und~ \frac{a_{i+1}-a_i} 2 = k(x_i)+ O(h^2).
+\]
+Possible choises are
+\[
+a_i = \frac{k(x_i)-k(x_{i+1})}{2}, ~ a_i = k \l( x_i - \tfrac{h}2 \r) ~\und~ a_i = \sqrt{k(x_i)\cdot k(x_{i-1})}.
+\]
+Note, that the choice $a_i=k(x_i)$ gives only order of consistency $1$.
+\end{example}
+
+Now consider
+\[
+Lu = u'' + b(x) u' + c(x) u = f(x), ~ x \in (0,1) \labtag{III.10}, ~ u(0)=u(1)=0
+\]
+where we write $u=u(x)$ for short. We assume, that $b$ and $c$ are sufficiently smooth and that $c(x)\geq 0$ for all $x\in[0,1]$.
+
+\begin{definition}
+The central difference scheme for \eqref{III.10} is given as
+\[
+- D^+ D^- u_i + b_i D^0 u_i + c_i u_i = f_i, ~ i=1,\dots, N, ~ u_0 = u_N = 0.
+\]
+\end{definition}
+
+\begin{remark}
+This leads to a tridiagonal matrix system of linear equations
+\[
+r_i u_{i-1} + s_i u_i + t_i u_{i+1} = f_i, ~ i=1\dots,N, ~ u_0 = u_N = 0.
+\]
+with
+\[
+r_i = - \frac{1}{h^2} - \frac{1}{2h}b_i, ~ s_i = c_i + \frac{2}{h^2} \und t_i = -\frac{1}{h^2} + \frac{1}{2h}b_i.
+\]
+\end{remark}
+
+Transferring the consistency of Definition III.21 to \eqref{III.10}, we obtain
+\[
+L_h u_h := R_h (Lu).
+\]
+We assume, that the boundary conditions are imposed such that the first row and the last row of $L_h$ are $\begin{bmatrix} 1 & 0 & \dots & 0 \end{bmatrix}^T$ and $\begin{bmatrix} 0 & \dots & 0 & 1 \end{bmatrix}^T$, respectively. It holds
+\[
+\l( R_h(Lu) \r)_0 = u_0, ~ \l( R_h(Lu) \r)_N = u_N.
+\]
+We thus call \eqref{III.10} consistent of order $k$, if
+\[
+\norm{L_h R_h u - R_h (Lu)}_{\infty,d} \leq c\cdot h^k,
+\]
+where $c$ and $k$ are independent of $h$.\footnote{For $u \in C^4[0,1]$ it can be shown, that the difference scheme for \eqref{III.10} has order $k=2$.}
+
+\begin{definition}
+A difference schemer $L_h u_h = f_h$ is called \textbf{stable}, if there exists a stability constant $c_s$, which is not depending on the meshsize $h$, such that
+\[
+\norm{u_h}_{\infty,d} \leq c_s \norm{L_h u_h}_{\infty,d}
+\]
+holds for all grid functions $u_h$.
+\end{definition}
+
+\begin{definition}
+A difference scheme for \eqref{III.10} is \textbf{convergent of order $k$} if there exists constants $c,k>0$ (being independent of $h$) such that
+\[
+\norm{u_h - R_h u}_{\infty,d} \leq c\cdot h^k.
+\]
+\end{definition}
+
+For a consistent and stable scheme we have
+\begin{align*}
+\norm{u_h - R_h u}_{\infty,d}
+& \leq c_s \norm{L_h(u_h - R_h u)}_{\infty,d} \\
+& = c_s \norm{L_h u_h - L_h R_h u}_{\infty,d} \\
+& = c_s \norm{f_h - L_h R_h u}_{\infty,d} \\
+& = c_s \norm{R_h f - L_h R_h u}_{\infty,d} \\
+& = c_s \norm{R_h L u - L_h R_h u}_{\infty,d} \\
+& \leq K \cdot h^k.
+\end{align*}
+
+We have thus shown the following theorem.
+
+\begin{theorem}
+A consistent and stable difference scheme is convergent and the order of consistency and convergence are the same.
+\end{theorem}
+
+\begin{remark}
+The consistency is usually shown by Taylor expansion. The stability is in general harder to show, dealing with functions and matrices.
+\end{remark}
+
+\begin{definition}
+Let $x,y \in \R^n$ and $A=[a_{ij}]\in\R^{n,n}$. Then we define
+\begin{align*}
+x \leq y &~~:\Leftrightarrow ~~x_i \leq y_i ~ \forall i=1,\dots,n \\
+x \geq 1 &~~:\Leftrightarrow ~~x_i \geq 1 ~ \forall i=1,\dots,n \\
+A \geq 0 &~~:\Leftrightarrow ~~a_{ij} \geq 0 ~ \forall i,j = 1,\dots,n.
+\end{align*}
+We call $A$ \textbf{inverse monotone}, if $A^{-1}$ exists and $A^{-1}\geq 0$.
+\end{definition}
+
+Let us assume, that $A$ is inverse monotone and $Av \leq Aw$ for $v,w \in \R^n$. Then
+\[
+A(v-w) = b \leq 0
+\]
+and thus
+\[
+v-w = A^{-1} b \leq 0
+\]
+so $v\leq w$.
 
 
 
