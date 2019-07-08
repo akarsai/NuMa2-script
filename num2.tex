@@ -3361,7 +3361,7 @@ We thus call \eqref{III.10} consistent of order $k$, if
 where $c$ and $k$ are independent of $h$.\footnote{For $u \in C^4[0,1]$ it can be shown, that the difference scheme for \eqref{III.10} has order $k=2$.}
 
 \begin{definition}
-A difference schemer $L_h u_h = f_h$ is called \textbf{stable}, if there exists a stability constant $c_s$, which is not depending on the meshsize $h$, such that
+A difference scheme $L_h u_h = f_h$ is called \textbf{stable}, if there exists a stability constant $c_s$, which is not depending on the meshsize $h$, such that
 \[
 \norm{u_h}_{\infty,d} \leq c_s \norm{L_h u_h}_{\infty,d}
 \]
@@ -3369,7 +3369,7 @@ holds for all grid functions $u_h$.
 \end{definition}
 
 \begin{definition}
-A difference scheme for \eqref{III.10} is \textbf{convergent of order $k$} if there exists constants $c,k>0$ (being independent of $h$) such that
+A difference scheme for \eqref{III.10} is \textbf{convergent of order $k$} if there exist constants $c,k>0$ (being independent of $h$) such that
 \[
 \norm{u_h - R_h u}_{\infty,d} \leq c\cdot h^k.
 \]
@@ -3414,14 +3414,182 @@ and thus
 \[
 v-w = A^{-1} b \leq 0
 \]
-so $v\leq w$.
+so $v\leq w$. \newline \hfill
 
+Now, consider the BVP
+\[
+\begin{aligned}
+(Lu)(x) = & - (pu')'(x) + q(x) u'(x) + r(x)u(x) = f(x), ~~ x \in I := [a,b] \\
+& u(a) = \alpha, ~ u(b) = \beta,
+\end{aligned} \labtag{III.11}
+\]
+the point grid
+\[
+a = x_0 < x_1 < \dots < x_N = b, ~ I_i=[t_{i-1},t_i)
+\]
+and the difference scheme
+\begin{align*}
+L_h u_i := & - D_{h/2}^0 (p_i D^0_{h/2}u_i) + q_i \cdot D_h^0 u_i + r_i u_i = f_i, ~ i=1,\dots,N-1 \\
+& u_0 = \alpha, ~ u_N = \beta,
+\end{align*}
+where
+\[
+D^0_h u(x) = \frac{u(x+h)-u(x-h)}{2h} \und g_i = g(x_i).
+\]
+This is equivalent to
+\[
+\tilde A_h \tilde u_h = \tilde f_h \labtag{III.12}
+\]
+where $\tilde A_h$ and $\tilde f_h$ are the result of $u_0 = \alpha, u_N = \beta$ and
+\[
+- \l( p_{i-1/2} u_i - (p_{i-1/2}+p_{i+1/2})y_i + p_{i+1/2}u_{i+1} + \tfrac h 2 q_i (u_{i+1}-u_{u-1}) + h^2 r_i y_i \r) = h^2 f_i.
+\]
+{\rot $A_h u_h = f_h$}, where
+\[
+A_h = \einsdurch{h^2} \begin{bmatrix}
+p_{1/2} + p_{3/2} + h^2 r_1 & - p_{3/2} + \tfrac{1}2 h q_1 & &  \\
+- p_{3/2} + \tfrac 1 2 h q_N & \ddots & \ddots & \\
+& \ddots & \ddots & \ddots \\
+\end{bmatrix}
+\]
+and
+\[
+f_h = \l( f_1 + h^{-2} p_{1/2}\alpha + \tfrac 1 2 h^{-1} q \alpha, ~ f_2, \dots, f_{N-1} + h^{-1} p_{N-1/2} \beta - \tfrac 1 2 h^{-1} q_N \beta \r),
+\]
+where $A_h$ is triadiagonal.
 
+\begin{remark}\hfill
+\begin{itemize}
+    \item It can be shown that this scheme for \eqref{III.11} has order of consistency $2$.
+    \item Stability in difference schemes is in general harder to show. {\rot The similarity of $A_h$ to $L_h$ is missing.}
+\end{itemize}
+\end{remark}
 
+\begin{definition}
+A matrix $A=[a_{ij}]\in\R^{N\times N}$ is called a \textbf{M-matrix} if\hfill
+\begin{enumerate}[(a)]
+    \item $a_{ij}\leq 0$ for $i\neq j$
+    \item $A^{-1}$ exists with $A^{-1}\geq 0$.
+\end{enumerate}
+\end{definition}
 
+Let us assume, that in \eqref{III.11} we have $p>0, q = 0$ and $r\geq 0$. Then the matrix $A_h$ is given by
+\[
+A_h = \einsdurch{h^2} \begin{bmatrix}
+p_{1/2} + p_{3/2} + h^2 r_1 & - p_{3/2} & & \\
+-p_{i-1/2} & \ddots & \ddots & \\
+& \ddots & \ddots & \ddots
+\end{bmatrix}.
+\]
+This matrix is then \emph{strictly diagonal dominant}, i.e. it holds for at least one $s\in \l\{ 1, \dots, N \r\}$ that
+\[
+\sum_{j\neq i} |a_{ij}| \leq |a_{ii}|, ~ 1 \leq i \leq N, ~\und~ \sum_{j\neq s} |a_{sj}| < |a_{ss}|.
+\]
+Further, it is \emph{irreducable}, i.e. for each two indices $i,j \in \l\{ 1,\dots, N \r\}$ there exists a sequence of indices $j_1,\dots, j_n$ such that
+\[
+a_{j_1,i} \neq 0, ~ a_{j_2,j_1} \neq 0, \dots, ~ a_{j,j_m} \neq 0.
+\]
 
+\begin{theorem}
+It can be shown, that for \eqref{III.11} with $q=0,r \geq 0$ the difference scheme \eqref{III.12} is stable.
+\end{theorem}
 
+\footnote{If interested, the books \emph{R. Plato, "Numerische Mathematik - kompakt"} and \emph{St\"{o}r/Bullirsch, "Numerical Mathematics II"} can give further information and proofs regarding difference methods.}
 
+In case of $q\neq 0$, we have
+\[
+A_h = \einsdurch{h^2} \begin{bmatrix}
+p_{1/2} + p_{3/2} + h^2 r_1 & -p_{3/2} + 1/2 h q_1 & & \\
+- p_{i-1/2} - 1/2 h q_i & \ddots & \ddots & \\
+& \ddots & \ddots & \ddots
+\end{bmatrix}.
+\]
+This matrix is unsymmetric and only diagonal dominant, if
+\[
+h \leq 2 \min_{1\leq i \leq N-1} \l\{ \frac{\min \l\{ p_{i-1/2},p_{i+1/2} \r\}}{|q_i|} \r\}.
+\]
+
+We now consider the problematic case $|q_i| \gg |p_i|$.
+
+\begin{example}
+Let $I=[0,1], ~ f = 0, ~ q = 1, ~ r = 0, ~ 0 < p = \varepsilon \ll 1$ and consider the problem
+\begin{align*}
+L^{\varepsilon}u(x) = &  - \varepsilon u''(x) + u'(x) = 0, ~ x \in I \\
+ & u(0) = 1, u(1) = 0.
+\end{align*}
+This problem has the analytical unique solution
+\[
+u^{\varepsilon}(x) = \frac{e^{1/\varepsilon} - e^{x/\varepsilon}}{e^{1/\varepsilon}-1}.
+\]
+For $x = 1 - \delta, ~ \delta > 0$, we have
+\[
+u^\varepsilon(1-\delta) = \frac{e^{1/\varepsilon}}{e^{1/\varepsilon}-1} \l( 1 - e^{-\delta/\varepsilon} \r) \approx 1.
+\]
+Further, for $\varepsilon=0$ we have $u_0 = 1$, which does \textbf{not} meet the boundary condition for $x=1$.
+
+{\rot The drawing illustrating the problem with the solution is missing.}
+
+Approximating this problem by the above difference scheme with equidistant step size $h=\tfrac 1 N$ we have
+\[
+\begin{aligned}
+    - (\varepsilon + tfrac 1 2 h) u_{i-1} + 2 \varepsilon u_i - (\varepsilon - \tfrac 1 2 h) u_{i+1}  & = 0, ~ 1 \leq i \leq N-1 \\
+    u_0 = 1, & u_N = 0
+\end{aligned} \labtag{III.13}
+\]
+The corresponding system matrix is only non-negative and diagonal dominant, if $h\leq 2 \varepsilon$.
+
+For the solution of the difference equation \eqref{III.13} we now take the approach $u_i = \lambda^i$ (cp. with characteristic polynomials of chapter II). We are seeking for the roots of the system. It holds
+\[
+\lambda^i + \frac{2 \varepsilon}{\tfrac h 2 \varepsilon} \lambda - \frac{\tfrac h 2 + \varepsilon}{\tfrac h 2 - \varepsilon} = 0, ~ u_0 = 1, u_N = 0.
+\]
+We take the ansatz
+\[
+u_i = c_1 \cdot \lambda_1^i + c_2 \lambda_2^i,
+\]
+where $\lambda_1,\lambda_2$ are the roots of the polynomial.
+It can then be shown, that the solution is given as
+\[
+u_i = \frac{\lambda_1^N \cdot \lambda_2^i - \lambda_2^N \cdot \lambda_1^i}{\lambda_1^N - \lambda_2^N}
+\]
+and the roots are
+\[
+\lambda_1 = 1 \und \lambda_2 = \frac{\varepsilon + \tfrac h 2}{\varepsilon - tfrac h 2},
+\]
+so for $\varepsilon \ll \tfrac h 2$ we have $\lambda_2 \approx -1$. In this case, we would have an oscillating solution
+\[
+u_i = \frac{\lambda_2^i - \lambda_2^N}{1-\lambda_2^N}
+\]
+
+We can get rid of this, by \hfill
+\begin{enumerate}[(1).]
+    \item Compute $u'(t)$ by $D_h^+$ or $D_h^-$. Because for
+    \[
+    D_h^- u(t) = \frac{u(t+h) - u(t)}{h}
+    \]
+    we arrive at
+    \[
+    -(\varepsilon + h) u_{u-1} + (2 \varepsilon + h) u_i - \varepsilon u_{i+1} = 0.
+    \]
+    The corresponding system matrix is diagonal dominant for all $h>0$ and is a M-matrix. With $u_i = \lambda^i$ we arrive at the polynomial
+    \[
+    \lambda^2 - \frac{2 \varepsilon + h}{ \varepsilon} \lambda + \frac{\varepsilon+h}{\varepsilon} = 0,
+    \]
+    which has the roots
+    \[
+    \lambda_1 = \frac{\varepsilon + h}{\varepsilon} ~\und~ \lambda_2 = 1,
+    \]
+    so the solution is
+    \[
+    u_i = \frac{\lambda_1^N - \lambda_1^i}{\lambda_1^N - 1}.
+    \]
+    This is called the $D_h^-$ upwind discretization (\emph{R\"{u}ckw\"{a}rtsdiskretisierung}).
+    \item Artificial diffusion. We set $\hat \varepsilon := \varepsilon + \delta h$ and obtain
+    \[
+    -(\hat \varepsilon + \tfrac h 2) u_{i-1} + 2 \hat \varepsilon u_i - (\hat \varepsilon - \tfrac h 2) u_{i+1} = 0,
+    \]
+    which works for $\delta \geq 1/2$, $A_h$ is a M-matrix. 
+\end{enumerate}
+\end{example}
 
 
 
