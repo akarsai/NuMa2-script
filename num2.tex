@@ -3532,7 +3532,7 @@ Further, for $\varepsilon=0$ we have $u_0 = 1$, which does \textbf{not} meet the
 Approximating this problem by the above difference scheme with equidistant step size $h=\tfrac 1 N$ we have
 \[
 \begin{aligned}
-    - (\varepsilon + tfrac 1 2 h) u_{i-1} + 2 \varepsilon u_i - (\varepsilon - \tfrac 1 2 h) u_{i+1}  & = 0, ~ 1 \leq i \leq N-1 \\
+    - (\varepsilon + \tfrac 1 2 h) u_{i-1} + 2 \varepsilon u_i - (\varepsilon - \tfrac 1 2 h) u_{i+1}  & = 0, ~ 1 \leq i \leq N-1 \\
     u_0 = 1, & u_N = 0
 \end{aligned} \labtag{III.13}
 \]
@@ -3544,7 +3544,7 @@ For the solution of the difference equation \eqref{III.13} we now take the appro
 \]
 We take the ansatz
 \[
-u_i = c_1 \cdot \lambda_1^i + c_2 \lambda_2^i,
+u_i = c_1 \lambda_1^i + c_2 \lambda_2^i,
 \]
 where $\lambda_1,\lambda_2$ are the roots of the polynomial.
 It can then be shown, that the solution is given as
@@ -3553,7 +3553,7 @@ u_i = \frac{\lambda_1^N \cdot \lambda_2^i - \lambda_2^N \cdot \lambda_1^i}{\lamb
 \]
 and the roots are
 \[
-\lambda_1 = 1 \und \lambda_2 = \frac{\varepsilon + \tfrac h 2}{\varepsilon - tfrac h 2},
+\lambda_1 = 1 \und \lambda_2 = \frac{\varepsilon + \tfrac h 2}{\varepsilon - \tfrac h 2},
 \]
 so for $\varepsilon \ll \tfrac h 2$ we have $\lambda_2 \approx -1$. In this case, we would have an oscillating solution
 \[
@@ -3587,18 +3587,138 @@ We can get rid of this, by \hfill
     \[
     -(\hat \varepsilon + \tfrac h 2) u_{i-1} + 2 \hat \varepsilon u_i - (\hat \varepsilon - \tfrac h 2) u_{i+1} = 0,
     \]
-    which works for $\delta \geq 1/2$, $A_h$ is a M-matrix. 
+    which works for $\delta \geq 1/2$, $A_h$ is a M-matrix.
 \end{enumerate}
 \end{example}
 
+Reconsider the problem \eqref{III.11}. If we have $p=1$ and $q=r=0$, it follows that
+\[
+A_h = \einsdurch{h^2} \begin{bmatrix}
+2 & -1 & & \\
+- 1 & \ddots & \ddots & \\
+& \ddots & \ddots & \ddots
+\end{bmatrix}.
+\]
+Since we have
+\[
+\textrm{cond}(A_h) = \frac{\lambda_{\textrm{max}}(A_h)}{\lambda_{\textrm{min}}(A_h)}
+\]
+and the eigenvalues and eigenvectors are
+\[
+\lambda_k = \einsdurch{h^2} \l\{ 2 - 2 \cos(kh\pi) \r\}, ~ k=1,\dots,N
+\]
+and
+\[
+w^k = \l\{ \sin{ikh\pi} \r\}_{i=1}^N,
+\]
+respectively, it holds
+\[
+\lambda_{\textrm{max}} = \frac{1}{h^2} (2 - 2 \cos((1-h)\pi)) = \frac{4}{k^2} + O(1)
+\]
+and
+\[
+\lambda_{\textrm{min}} = \frac{1}{h^2} (2 - 2 \cos(h\pi)) = \frac{1}{h^2} (2-2(1- \tfrac 1 2 h^2 \pi^2)) + O(h^4).
+\]
+Thus, we have
+\[
+\textrm{cond}(A_h) = \frac{\lambda_{\textrm{max}}}{\lambda_{\textrm{min}}} = \frac{4}{h^2 \pi^2}+ O(1).
+\]
+Hence, the condition is $O(h^{-2})$ and thus the finer the discretization, the worse is the condition of $A_h$.
 
+\subsubsection*{Box-Method}
+There exist also so called Box methods for finite difference methods. Here, the node values $v_i$ of $u$ are representable for the value of $u$ in an interval, i.e. $[x_{i-1/2},x_{i-1/2}] = [x_i - \tfrac{h}{2}, x_i + \tfrac{h}2]$ and we assume that $u_i$ is piecewise constant on this interval.
 
+\begin{example}
+Consider
+\[
+- (k(x)u')' + c(x) u(x) = f(x), ~ 0 < x < 1, ~ u(0) = u(1) = 0, ~ k(x),c(x) \geq 0.
+\]
+Then we want that
+\begin{align*}
+\int_{x_{i-1/2}}^{x_{i+1/2}}-(k(x) u')' + c(x) u(x) ~ dx
+& = - (k(x) u'(x))\bigg|^{x_{i+1/2}}_{x_{i-1/2}} + \int_{x_{i-1/2}}^{x_{i+1/2}} c(x) u(x)~ dx \\
+& \overset{\textrm{!}}{=} \int_{x_{i-1/2}}^{x_{i+1/2}}f(x)~ dx
+\end{align*}
+holds. Hence, we can derive
+\[
+\einsdurch{h} \l(k_{i+1/2} \frac{u_{i+1} u_i}{h} - k_{i-1/2} \frac{u_i - u_{i-1}}{h}\r) + c_i u_i = f_i.
+\]
+\end{example}
 
+\subsubsection*{Shooting Methods}
+Given some BVP
+\begin{align*}
+y' & = f(x,y) \in \R^n, \\
+a & \leq x \leq b, \\
+R(y(a),y(b)) & = 0 \in \R^n,
+\end{align*}
+we take some guess $s:=y(a)$ and solve the IVP
+\[
+y' = f(x,y), ~ y(a) = s.
+\]
+The solution $y(x;a,s)$ of this IVP is then evaluated at the right hand side of the boundary
+\[
+F(s):= R \Big( y(a;a,s),~y(b;a,s) \Big) = R \Big( s, y(b;a,s) \Big).
+\]
+With regard to the BVP, we seek for a root of $F$.
 
+{\rot The drawing explaining shooting methods is missing.}
 
+We do single shooting by using an inexact Newton method. We are seeking for the roots of
+\begin{align*}
+    DF(s^{(i)}) \Delta s^{(i)} & = - F(s^{(i)}), \\
+    s^{(i+1)} & = s^{(i)} + \lambda^{(i)} \Delta s^{(i)}, \\
+    \Delta s^{(i)} & = s^{(i)} - s^{(i-1)},
+\end{align*}
+where $DF$ is a Jacobian, which is not computed exactly, but numerical.
 
+We are using following steps:
 
+\begin{enumerate}[(1).]
+    \item[(0).] Guess $s^{(i)},~i=0,~\lambda^{(-1)}:= 1$ and compute $F(s^{(i)})$.
+    \item Compute $DF s^{(i)}$.
+    \item Compute $\Delta s^{(i)},~ \lambda^{(i)} = \min \l\{ 1,2 \lambda^{(i-1)} \r\}$.
+    \item Set $s^{(i+1)} := s^{(i)} + \lambda^{(i)} \Delta s^{(i)}$.
+    \item Compute $F(s^{(i+1)})$.
+    \item If $\norm{F(s^{(i+1)})} < \textrm{TOL}$, then end. Otherwise, go to (6).
+    \item If $\norm{F(s^{(i+1)})} > \norm{F(s^{(i)})}$, set $\lambda^{(i)} = \tfrac{\lambda^{(i)}} 2$ and go to (3). Otherwise, set $i=i+1$.
+\end{enumerate}
 
+\begin{remark}\hfill
+\begin{itemize}
+    \item Evaluating $F$ is equivalent to solving an IVP.
+    \item We have
+    \[
+    DF = \partiell{R\Big( y(a;a,s),~y(b;a,s) \Big)}{y_a} + \partiell{R \Big( y(a;a,s), ~ y(b;a,s) \Big)}{y_b} \cdot \underbrace{\partiell{y(b;a,s)}{s}}_{=: G}.
+    \]
+    The matrix $G$ is called \emph{sensitivity matrix}.
+\end{itemize}
+\end{remark}
+
+The sensitivity matrix $G$ can be approximated via a difference approximation. More precisely, the $i$-th column of $G$ is given by
+\[
+\partiell{y(x;a,s)}{s_i} \approx \frac{y(x;a,s+\delta e_i)-y(x;a,s)}{\delta}, \tag{$\ast$}
+\]
+where $\delta$ is a discretization parameter.
+
+It is crucial to choose $\delta$ properly. However, it is unclear how to do that.
+
+We have two kinds of errors: \hfill
+\begin{itemize}
+    \item the approximation error, which is $O(\delta)$ and
+    \item the rounding error, since the smaller $\delta$ is, the closer are $y(x;a,s+\delta e_i)$ and $y(x;a,s)$.
+\end{itemize}
+In case of a linear BVP, the Newton method converges after $1$ step. However, in the case of a nonlinear BVP, it can happen that for a bad guess $s$ the Newton scheme does not converge, even if the BVP has locally a unique solution.
+
+\begin{example}
+Consider
+\[
+y'=y^2, ~ y=\frac 1 {c-t}, ~ c\in\R
+\]
+with the boundary condition $y(10) -y(0) = \tfrac{1}{20}$. Then $c=20,~y(t) = \tfrac{1}{20-t}$. It follows that $s = y(0) = \tfrac{1}{20}=0.05$.  Taking a "bad" initial guess, e.g. $s^{(0)}=y^{(0)}(0)=0.2$, we get $y=\tfrac{1}{5-t}$ and thus the corresponding IVP has a singularity in $[0,10]$. Hence, we can not evaluate $F$.
+
+Thus, a good starting guess is important and a single shooting method is not suitable for highly nonlinear problems.
+\end{example}
 
 
 
