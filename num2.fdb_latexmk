@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1562750566 "num2.tex" "num2.pdf" "num2" 1562750571
+["pdflatex"] 1563864520 "num2.tex" "num2.pdf" "num2" 1563864526
   "BVP_slides.pdf" 1561543551 256236 3fd638a07f7bb24096006d97c02b359e ""
   "C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233955448 1004 54797486969f23fa377b128694d548df ""
   "C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1233955448 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -123,13 +123,13 @@
   "C:/Program Files/MiKTeX 2.9/tex/latex/xcolor/xcolor.sty" 1463135581 57049 34128738f682d033422ca125f82e5d62 ""
   "C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map" 1557836194 160627 ee3a522f95d58a2913c0097ad246dc0f ""
   "C:/Users/xboxl/AppData/Local/MiKTeX/2.9/miktex/data/le/pdftex/pdflatex.fmt" 1554888970 3822843 2908af874cef575f332824b2beaee530 ""
-  "num2.aux" 1562750569 4971 53189010bdfdff0c2509dae7ddf88c94 "pdflatex"
-  "num2.out" 1562750569 699 8d7912019e77695be04c9090f449dd5e "pdflatex"
-  "num2.tex" 1562750565 151502 b24c12574cb4ff27eec65c40cb139c13 ""
-  "num2.toc" 1562750569 913 9de0bcdc0d1d5b15908b4418cef3e1be "pdflatex"
+  "num2.aux" 1563864524 4971 53189010bdfdff0c2509dae7ddf88c94 "pdflatex"
+  "num2.out" 1563864524 699 8d7912019e77695be04c9090f449dd5e "pdflatex"
+  "num2.tex" 1563864519 151475 810b70ad0262ca2074f899ba5d75ea75 ""
+  "num2.toc" 1563864524 913 9de0bcdc0d1d5b15908b4418cef3e1be "pdflatex"
   (generated)
-  "num2.log"
   "num2.aux"
-  "num2.pdf"
-  "num2.out"
   "num2.toc"
+  "num2.pdf"
+  "num2.log"
+  "num2.out"
